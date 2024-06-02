@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class MapUtil : MonoSingleton<MapUtil>
    {
       _agentPrefabDictionary = new Dictionary<AgentType, Agent>();
       _agentStacks = new Dictionary<AgentType, Stack<Agent>>();
-      for(int i = 0; i<_agentPrefabList.Count; ++i)
+      for (int i = 0; i < _agentPrefabList.Count; ++i)
       {
          _agentPrefabDictionary[_agentPrefabList[i].agentType]
             = _agentPrefabList[i].agentPrefab;
@@ -30,15 +29,12 @@ public class MapUtil : MonoSingleton<MapUtil>
       }
    }
 
-   public static void PushBuilding(AgentType type)
+
+
+   public static Agent PopBuilding(AgentType type)
    {
       Agent target = Instantiate(Instance._agentPrefabDictionary[type], Instance.transform);
-      Instance._agentStacks[type].Push(target);
-   }
-
-   public static void PopBuilding()
-   {
-
+      return target;
    }
 
 

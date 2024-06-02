@@ -7,13 +7,8 @@ using UnityEngine;
 public class BuildingStateMachine<T> : StateMachine<BuildingBaseStateEnum>
    where T : Enum
 {
-   [SerializeField] private StateMachine<T> stayStateSubMachine;
+   [SerializeField] public StateMachine<T> stayStateSubMachine;
 
-   public void Intialize(Agent owner, StateMachine<T> subStateMachine, BuildingBaseStateEnum defaultState)
-   {
-      base.Intialize(owner, defaultState);
-      stayStateSubMachine.Intialize(owner, default);
-   }
 
 
    public override void Update()

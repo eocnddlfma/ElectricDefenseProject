@@ -6,15 +6,11 @@ using UnityEngine;
 public class Building<T> : Agent 
    where T : Enum
 {
-   private BuildingStateMachine<T> mainStateMachine;
-   private StateMachine<T> staySubStateMachine;
+   [SerializeField] private BuildingStateMachine<T> mainStateMachine;
 
-   private void Awake()
+   public virtual void Awake()
    {
-      if(staySubStateMachine is not null)
-      {
-         mainStateMachine.Intialize(this, staySubStateMachine, BuildingBaseStateEnum.Stay);
-      }
+      mainStateMachine.Intialize(this, BuildingBaseStateEnum.Stay);
    }
 
 

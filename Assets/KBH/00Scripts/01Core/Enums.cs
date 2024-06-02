@@ -1,7 +1,13 @@
 
 public enum AgentType
 {
-   Building,
+   None,
+   ArrowTower,
+   GoldStorage,
+   GoldMinor,
+   HighWall,
+   LowWall,
+   EnergyLine,
    Enemy
 }
 

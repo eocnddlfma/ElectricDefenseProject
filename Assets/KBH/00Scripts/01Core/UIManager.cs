@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,13 +23,13 @@ public class UIManager : MonoBehaviour
       switch (coreCanvas.currentMode)
       {
          case GameMode.View:
-            buildCanvas.Alpha = 0;
-            viewCanvas.Alpha = 1;
+            DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 0, 0.2f);
+            DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 1, 0.2f);
             break;
 
          case GameMode.Build:
-            buildCanvas.Alpha = 1;
-            viewCanvas.Alpha = 0;
+            DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 1, 0.2f);
+            DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 0, 0.2f);
             break;
       }
    }

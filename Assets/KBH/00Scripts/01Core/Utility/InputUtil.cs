@@ -104,6 +104,10 @@ public class InputUtil : MonoSingleton<InputUtil>
          moveDirection = context.ReadValue<Vector2>();
          OnMoveEvent?.Invoke(screenPosition);
       }
+      else
+      {
+         moveDirection = Vector3.zero;
+      }
    }
 
 }

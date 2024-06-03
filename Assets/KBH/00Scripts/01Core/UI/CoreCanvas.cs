@@ -11,20 +11,16 @@ public class CoreCanvas : UIAgent
    [SerializeField] private TextMeshProUGUI _modeShowText;
    public GameMode currentMode;
 
-   private string[] _modeNames;
-   private int _modeCount;
+   [SerializeField] private GameMode[] _modeNames;
 
    private void Awake()
    {
-      _modeNames = Enum.GetNames(typeof(GameMode));
-      _modeCount = _modeNames.Length;
-
       modeSwapBtn.onClick.AddListener(OnModeChange);
    }
 
    private void OnModeChange()
    {
-      currentMode = (GameMode)(((int)currentMode + 1) % _modeCount);
+      currentMode = (GameMode)(((int)currentMode + 1) % _modeNames.Length);
       _modeShowText.text
          = @$"Mode
 <b>{_modeNames[(int)currentMode]}</b>";

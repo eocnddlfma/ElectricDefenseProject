@@ -7,6 +7,7 @@ public class EnemyStatus : MonoBehaviour
 {
     public float hp;
     public float maxHp;
+    [FormerlySerializedAs("attackTime")] public float attackTimeMultiplier;
 
     public EnemyTargetPriorityEnum moveTargetPriority;
 

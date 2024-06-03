@@ -8,6 +8,7 @@ public class EnemyIdle : EnemyState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("enemyStateIdle");
     }
 
     public override void Exit()
@@ -17,9 +18,9 @@ public class EnemyIdle : EnemyState
 
     public override bool CanChangeToOther(ref EnemyStateEnum state)
     {
-        if (!_enemyReference.navMeshAgent.enabled)
+        if (!_enemyReference._navMeshAgent.enabled)
         {
-            _enemyReference.navMeshAgent.enabled = true;
+            _enemyReference._navMeshAgent.enabled = true;
         }
 
         state = EnemyStateEnum.Move;

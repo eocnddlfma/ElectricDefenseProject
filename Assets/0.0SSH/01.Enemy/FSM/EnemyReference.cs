@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class EnemyReference : StatesReference<EnemyStateEnum>
 {
-    [SerializeField] private Enemy enemy;
-    public NavMeshAgent navMeshAgent;
-    public EnemyStatus enemyStatus;
+    [SerializeField] private Enemy _enemy;
+    public NavMeshAgent _navMeshAgent;
+    public EnemyStatus _enemyStatus;
+    public Animator _animator;
 
     private void Awake()
     {
-        navMeshAgent = enemy._navMeshAgent;
-        enemyStatus = enemy._status;
+        _navMeshAgent = _enemy._navMeshAgent;
+        _enemyStatus = _enemy._status;
     }
 }

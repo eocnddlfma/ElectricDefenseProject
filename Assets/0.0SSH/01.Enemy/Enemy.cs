@@ -7,19 +7,22 @@ using UnityEngine.AI;
 public class Enemy : Agent
 {
     public NavMeshAgent _navMeshAgent;
-    private StateMachine<EnemyStateEnum> _stateMachine;
+    [SerializeField] private StateMachine<EnemyStateEnum> _stateMachine;
     public EnemyStatus _status;
 
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _stateMachine.Intialize(this, EnemyStateEnum.Idle);
     }
 
     private void Start()
     {
         
     }
-
+    
+    
+    
     private void OnDestroy()
     {
         
@@ -27,7 +30,7 @@ public class Enemy : Agent
 
     void Update()
     {
-        
+        _stateMachine.Update();
     }
 
 }

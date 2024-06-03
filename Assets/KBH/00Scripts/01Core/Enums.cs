@@ -8,7 +8,8 @@ public enum AgentType
    HighWall,
    LowWall,
    EnergyLine,
-   Enemy
+   Enemy,
+   Player
 }
 
 public enum BuildingBaseStateEnum
@@ -34,5 +35,14 @@ public enum ToolBarEnum
 public enum GameMode
 {
    View,
-   Build
+   Build,
+   Upgrade,
+   Shop
+}
+
+public enum MapBlockType
+{
+   None,
+   Rock,
+   Gold
 }

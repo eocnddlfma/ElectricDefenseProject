@@ -20,7 +20,6 @@ public class CoreCanvas : UIAgent
       _modeCount = _modeNames.Length;
 
       modeSwapBtn.onClick.AddListener(OnModeChange);
-      OnModeChange();
    }
 
    private void OnModeChange()

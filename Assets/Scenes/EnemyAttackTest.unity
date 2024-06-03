@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 95671724}
   - component: {fileID: 95671725}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArrowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1006,7 @@ GameObject:
   - component: {fileID: 327384820}
   - component: {fileID: 327384819}
   - component: {fileID: 327384818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1563,7 +1563,7 @@ GameObject:
   - component: {fileID: 463425145}
   - component: {fileID: 463425144}
   - component: {fileID: 463425143}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1668,6 +1668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2002830822834556940, guid: 935bdf36421b06140a6d958d8bdb87e2, type: 3}
+      propertyPath: AttackEffect
+      value: 
+      objectReference: {fileID: 816200248023111963, guid: ee0fb7fa9c1f2104ca6996a496db0aa4, type: 3}
     - target: {fileID: 3474931492688212421, guid: 935bdf36421b06140a6d958d8bdb87e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.86
@@ -2403,13 +2407,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 689377070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ca9de475260454fadf7f5bf6ade105, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommandBuilding: {fileID: 0}
-  OnMapChange:
-    m_PersistentCalls:
-      m_Calls: []
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 119
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 78108f9604c71984ca16b40bbc725b3c, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &698285727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2735,6 +2754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787481204}
+  - component: {fileID: 787481205}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -2759,6 +2779,24 @@ Transform:
   - {fileID: 1130579966}
   m_Father: {fileID: 1843183404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &787481205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787481203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ca9de475260454fadf7f5bf6ade105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommandBuilding: {fileID: 95671725}
+  _navMeshSurface: {fileID: 689377075}
+  _navMeshData: {fileID: 23800000, guid: 78108f9604c71984ca16b40bbc725b3c, type: 2}
+  OnMapChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &795500531
 GameObject:
   m_ObjectHideFlags: 0

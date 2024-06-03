@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1758779522793926438}
   - component: {fileID: 4421015399088703065}
   - component: {fileID: 2449963589949520478}
+  - component: {fileID: 2002830822834556940}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
     Reference: {fileID: 0}
     isJustEnter: 0
   _status: {fileID: 2449963589949520478}
+  _enemyAttack: {fileID: 2002830822834556940}
 --- !u!195 &1758779522793926438
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -190,6 +192,19 @@ MonoBehaviour:
   attackTimeMultiplier: 1
   moveTargetPriority: 2
   attackRadius: 6
+--- !u!114 &2002830822834556940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085961731073128787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbf75d879ddee3478bcb12eac649837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackEffect: {fileID: 0}
 --- !u!1 &3770536157250233412
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +434,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 0}
   _enemyStatus: {fileID: 0}
   _animator: {fileID: 0}
+  _baseEnemyAttack: {fileID: 0}
 --- !u!1 &8824618763509583131
 GameObject:
   m_ObjectHideFlags: 0

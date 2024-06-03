@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         _wave = 0;
-        uiManager.viewCanvas.WaveGaugePercent = 0;
+        //uiManager.viewCanvas.WaveGaugePercent = 0;
 
         StartCoroutine(UpdateWave());
     }

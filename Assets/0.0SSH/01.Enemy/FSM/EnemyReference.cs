@@ -11,10 +11,12 @@ public class EnemyReference : StatesReference<EnemyStateEnum>
     public NavMeshAgent _navMeshAgent;
     public EnemyStatus _enemyStatus;
     public Animator _animator;
+    public BaseEnemyAttack _baseEnemyAttack;
 
     private void Awake()
     {
         _navMeshAgent = _enemy._navMeshAgent;
         _enemyStatus = _enemy._status;
+        _baseEnemyAttack = _enemy._enemyAttack;
     }
 }

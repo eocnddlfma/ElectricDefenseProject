@@ -36,3 +36,10 @@ public enum GameMode
    View,
    Build
 }
+
+public enum MapBlockType
+{
+   None,
+   Rock,
+   Gold
+}

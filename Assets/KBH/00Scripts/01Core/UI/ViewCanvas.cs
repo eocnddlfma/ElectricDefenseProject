@@ -3,22 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ViewCanvas : UIAgent
 {
    [Header("Resource UI")]
    [SerializeField] private Image coinGuage;
-   [SerializeField] private TextMeshProUGUI coinGuageText;
+   [SerializeField] private TextMeshProUGUI coinGaugeText;
    [SerializeField] private TextMeshProUGUI expText;
+
    [Header("Wave UI")]
-   [SerializeField] private TextMeshProUGUI waveGuageText;
-   [SerializeField] private Image waveGuage;
+   [SerializeField] private TextMeshProUGUI waveGaugeText;
+   [SerializeField] private Image waveGauge;
    [Header("Setting Panel")]
    [SerializeField] private RectTransform settingPanel;
    [SerializeField] private Button settingBtn;
 
-   public float CoinGuagePercent
+   public float CoinGaugePercent
    {
       get => coinGuage.fillAmount;
       set => coinGuage.fillAmount = Mathf.Clamp01(value);
@@ -26,8 +28,8 @@ public class ViewCanvas : UIAgent
 
    public string CoinText
    {
-      get => coinGuageText.text;
-      set => coinGuageText.text = value;
+      get => coinGaugeText.text;
+      set => coinGaugeText.text = value;
    }
 
    public string ExpText
@@ -36,10 +38,16 @@ public class ViewCanvas : UIAgent
       set => expText.text = value;
    }
 
-   public float WaveGuagePercent
+   public float WaveGaugePercent
    {
-      get => waveGuage.fillAmount;
-      set => waveGuage.fillAmount = Mathf.Clamp01(value);
+      get => waveGauge.fillAmount;
+      set => waveGauge.fillAmount = Mathf.Clamp01(value);
+   }
+   
+   public string WaveText
+   {
+      get => waveGaugeText.text;
+      set => waveGaugeText.text = "Wave : "+value;
    }
 
    private void Awake()
@@ -49,7 +57,7 @@ public class ViewCanvas : UIAgent
 
    private void OpenSettingPanel()
    {
-      // ¿©±â¼­ ¼¼ÆÃ Ã¢À» ¿­¾îÁİ´Ï´Ù. 
+      // ì—¬ê¸°ì„œ ì„¸íŒ… ì°½ì„ ì—´ì–´ì¤ë‹ˆë‹¤. 
    }
 
 

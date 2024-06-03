@@ -14,19 +14,19 @@ public class Enemy : Agent
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _stateMachine.Intialize(this, EnemyStateEnum.Idle);
+        
     }
 
     private void Start()
     {
-        
+        EnemyManager.Instance.enemyList.Add(this);
     }
-    
-    
     
     private void OnDestroy()
     {
-        
+        EnemyManager.Instance.enemyList.Remove(this);
     }
+    
 
     void Update()
     {

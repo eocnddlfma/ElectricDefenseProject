@@ -23,3 +23,16 @@ public enum ArrowTowerStateEnum
    Stay,
    Attack,
 }
+
+public enum ToolBarEnum
+{
+   Add,
+   Remove,
+   Move,
+}
+
+public enum GameMode
+{
+   View,
+   Build
+}

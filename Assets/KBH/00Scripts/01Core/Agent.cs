@@ -5,4 +5,8 @@ using UnityEngine;
 public class Agent : MonoBehaviour
 {
    public AgentType agentType;
+   public virtual void WakeUpAction()
+   {
+
+   }
 }

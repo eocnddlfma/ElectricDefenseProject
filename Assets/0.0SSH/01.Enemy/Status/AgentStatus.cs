@@ -6,4 +6,5 @@ public class AgentStatus : MonoBehaviour
 {
     public int hp;
     public int maxHp;
+    public int damage;
 }

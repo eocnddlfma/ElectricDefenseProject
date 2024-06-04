@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyMove : EnemyState
 {
-    public Agent TargetBuilding;
-    
     public override void Enter()
     {
         base.Enter();
@@ -24,7 +23,7 @@ public class EnemyMove : EnemyState
         {
             if (EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
             {
-                TargetBuilding = EnemyRouteManager.Instance.CommandBuilding;
+                _enemyReference.target = EnemyRouteManager.Instance.CommandBuilding;
             }
         }
         else if (_enemyReference._enemyStatus.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior)
@@ -35,7 +34,7 @@ public class EnemyMove : EnemyState
 
             if (hits > 0)
             {
-                TargetBuilding = _raycastHits[0].transform.GetComponent<Agent>();
+                _enemyReference.target = _raycastHits[0].transform.GetComponent<Agent>();
             }
             
             
@@ -45,14 +44,14 @@ public class EnemyMove : EnemyState
             //TargetBuilding = GetClosestBuilding();
         }
 
-        TargetBuilding = EnemyRouteManager.Instance.CommandBuilding;//forTest;
-        _enemyReference._navMeshAgent.SetDestination(TargetBuilding.transform.position);
+        _enemyReference.target = EnemyRouteManager.Instance.CommandBuilding;//forTest;
+        _enemyReference._navMeshAgent.SetDestination(_enemyReference.target.transform.position);
         
         if(EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
         {
             //Debug.LogError("야임마 길 없어!!");
         }
-        if (Vector3.Distance(TargetBuilding.transform.position, transform.position) <
+        if (Vector3.Distance(_enemyReference.target.transform.position, transform.position) <
             _enemyReference._enemyStatus.attackRadius)
         {
             state = EnemyStateEnum.Attack;
@@ -66,7 +65,7 @@ public class EnemyMove : EnemyState
     {
         if(EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
         {
-            TargetBuilding = null;
+            _enemyReference.target = null;
             Debug.LogError("야임마 길 없어!!");
         }
     }

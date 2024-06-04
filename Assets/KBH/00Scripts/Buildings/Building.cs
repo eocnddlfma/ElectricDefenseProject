@@ -8,8 +8,9 @@ public class Building<T> : Agent
 {
    [SerializeField] private BuildingStateMachine<T> mainStateMachine;
 
-   public virtual void Awake()
+   public override void Awake()
    {
+      base.Awake();
       mainStateMachine.Intialize(this, BuildingBaseStateEnum.Stay);
    }
 

@@ -10,32 +10,39 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHp; 
     [SerializeField] private int hp;
     [SerializeField] private Agent _agent;
+    [SerializeField] private HealthBar _healthBar;
 
     public int Hp
     {
         get => hp;
-        set => hp = value;
+        set
+        {
+            hp = value;
+            if (value > maxHp)
+                hp = maxHp;
+            Debug.Log($"current hp {hp}");
+            _healthBar.UpdateHealthbar(hp/(float)maxHp);
+        } 
     }
     
     public void Initialize(Agent agent)
     {
         _agent = agent;
         maxHp = agent.agentStatus.maxHp;
-        hp = maxHp;
-    }
-    private void Awake()
-    {
-        
+        Hp = maxHp;
     }
 
-    public void GetDamage()
+    public void DoDamage(int damage)
     {
-        
+        Hp = hp - damage;
+        if(hp<0)
+            _agent.Die();
+            
     }
 
-    public void GetHeal()
+    public void GetHeal(int heal)
     {
-        
+        Hp = hp + heal;
     }
 
 }

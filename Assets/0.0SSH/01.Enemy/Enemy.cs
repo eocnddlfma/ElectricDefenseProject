@@ -11,6 +11,7 @@ public class Enemy : Agent
     [SerializeField] private StateMachine<EnemyStateEnum> _stateMachine;
     public EnemyStatus _status;
     public BaseEnemyAttack _enemyAttack;
+    public DamageCaster damageCaster;
 
     private void Awake()
     {
@@ -21,6 +22,9 @@ public class Enemy : Agent
         }
         Debug.Log(_enemyAttack);
         _stateMachine.Intialize(this, EnemyStateEnum.Idle);
+        
+        _enemyAttack.Initialize(this);
+        damageCaster.Initialize(this);
     }
 
     private void Start()

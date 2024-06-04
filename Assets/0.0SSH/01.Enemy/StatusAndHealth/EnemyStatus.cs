@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class EnemyStatus : MonoBehaviour
+public class EnemyStatus : AgentStatus
 {
-    public float hp;
-    public float maxHp;
-    [FormerlySerializedAs("attackTime")] public float attackTimeMultiplier;
+    public float attackTimeMultiplier;
 
     public EnemyTargetPriorityEnum moveTargetPriority;
 

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class DamageCaster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Agent agent;
+    public void Initialize(Agent agent)
     {
-        
+        this.agent = agent;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void CastDamage(Agent target)
     {
-        
+        target.health.DoDamage(agent.agentStatus.damage);
     }
 }

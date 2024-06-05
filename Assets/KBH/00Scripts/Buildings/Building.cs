@@ -26,8 +26,9 @@ public class Building<T> : Agent, IBuildingAgent
    }
 
 
-   public virtual void Awake()
+   public override void Awake()
    {
+      base.Awake();
       mainStateMachine.Intialize(this, BuildingBaseStateEnum.Stay);
       _meshRenderer = transform.Find("Visual")
          .GetComponent<MeshRenderer>();

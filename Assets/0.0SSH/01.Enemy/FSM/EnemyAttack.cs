@@ -17,6 +17,14 @@ public class EnemyAttack : EnemyState
         //_enemyReference._animator.speed = _enemyReference._enemyStatus.attackTimeMultiplier;
     }
 
+    private IEnumerator Attack()
+    {
+        _enemyReference._baseEnemyAttack.Attack(transform, _enemyReference.target);
+        //yield return new WaitForSeconds(animationLength / _enemyReference._enemyStatus.attackTimeMultiplier);
+        yield return new WaitForSeconds(1f);
+        isAttackFinished = true;
+    }
+
     public override bool CanChangeToOther(ref EnemyStateEnum state)
     {
         if(!isAttackFinished)
@@ -24,14 +32,5 @@ public class EnemyAttack : EnemyState
 
         state = EnemyStateEnum.Move;
         return true;
-    }
-
-    private IEnumerator Attack()
-    {
-        Debug.Log("attacking");
-        _enemyReference._baseEnemyAttack.Attack(transform);
-        //yield return new WaitForSeconds(animationLength / _enemyReference._enemyStatus.attackTimeMultiplier);
-        yield return new WaitForSeconds(1f);
-        isAttackFinished = true;
     }
 }

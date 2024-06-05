@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedAttack : BaseEnemyAttack
 {
-    public override void Attack( Transform parent)
+    public void Attack(Transform parent)
     {
         Instantiate(AttackEffect, parent);
     }

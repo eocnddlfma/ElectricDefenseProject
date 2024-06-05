@@ -12,6 +12,7 @@ public class EnemyReference : StatesReference<EnemyStateEnum>
     public EnemyStatus _enemyStatus;
     public Animator _animator;
     public BaseEnemyAttack _baseEnemyAttack;
+    public Agent target;
 
     private void Awake()
     {

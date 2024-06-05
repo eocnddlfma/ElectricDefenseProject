@@ -1,9 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public abstract class BaseEnemyAttack : MonoBehaviour
+public class BaseEnemyAttack : MonoBehaviour
 {
     [SerializeField] protected GameObject AttackEffect;
-    public abstract void Attack(Transform parent);
+    [SerializeField] public Agent _agent;
+    
+    public void Initialize(Agent agent)
+    {
+        _agent = agent;
+    }
+
+    public virtual void Attack(Transform parent, Agent target)
+    {
+        target.health.DoDamage(_agent.agentStatus.damage);
+    }
 }

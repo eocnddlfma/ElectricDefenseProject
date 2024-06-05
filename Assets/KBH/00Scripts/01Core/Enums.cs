@@ -9,14 +9,24 @@ public enum AgentType
    LowWall,
    EnergyLine,
    Enemy,
-   Player
+   Player,
+   Rock,
+   Gold
+}
+
+public enum BuildingUseType
+{
+   Defence,
+   Attack,
+   Minding,
+   Save,
+   Carry,
 }
 
 public enum BuildingBaseStateEnum
 {
    Stay,
    Preparation,
-   Fixing
 }
 
 public enum ArrowTowerStateEnum
@@ -25,12 +35,20 @@ public enum ArrowTowerStateEnum
    Attack,
 }
 
+public enum EnergyLineStateEnum
+{
+   Save,
+   Carry,
+}
+
 public enum ToolBarEnum
 {
+   None,
    Add,
    Remove,
    Move,
 }
+
 
 public enum GameMode
 {
@@ -40,9 +58,28 @@ public enum GameMode
    Shop
 }
 
-public enum MapBlockType
+public enum CursorShotStateEnum
 {
-   None,
-   Rock,
-   Gold
+   Default,
+   CanBuild,
+   ImpossibleBuild
+}
+
+public enum GoldStorageStateEnum
+{
+
+}
+
+public enum GoldMinorStateEnum
+{
+
+}
+
+public enum HighWallStateEnum
+{
+
+}
+public enum LowWallStateEnum
+{
+
 }

@@ -6,6 +6,6 @@ public class PlayerShop : PlayerState
 {
    public override bool CanChangeToOther(ref GameMode state)
    {
-      return false;
+      return base.CanChangeToOther(ref state);
    }
 }

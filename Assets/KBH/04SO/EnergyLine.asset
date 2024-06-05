@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9c965609bc69c46a63392e198f104d, type: 3}
+  m_Name: EnergyLine
+  m_EditorClassIdentifier: 
+  hp: 0
+  range: 0
+  cost: 1
+  useType: 4
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  buildingName: "\uC5D0\uB108\uC9C0\uC120"
+  description: "\uCC44\uAD74\uAE30\uC5D0\uC11C \uC800\uC7A5\uC18C\uB85C \uC5D0\uB108\uC9C0\uC744
+    \uC6B4\uBC18\uD55C\uB2E4. \n\uC5B4\uB5A4 \uAC74\uBB3C\uC744 \uC5C5\uADF8\uB808\uC774\uB4DC\uD558\uAC70\uB098
+    \uAC74\uC124\uD558\uAE30 \uC704\uD574\uC11C\uB294 \uC804\uC120\uC758 \uADFC\uCC98\uC5D0
+    \uC788\uC5B4\uC57C \uD55C\uB2E4."

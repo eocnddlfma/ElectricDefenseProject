@@ -6,6 +6,6 @@ public class PlayerUpgrade : PlayerState
 {
    public override bool CanChangeToOther(ref GameMode state)
    {
-      return false;
+      return base.CanChangeToOther(ref state);
    }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9c965609bc69c46a63392e198f104d, type: 3}
+  m_Name: ArrowTower
+  m_EditorClassIdentifier: 
+  hp: 0
+  range: 0
+  cost: 15
+  useType: 0
+  baseColor: {r: 0.1385128, g: 0.9056604, b: 0, a: 0}
+  buildingName: "\uAD81\uBCD1\uD0D1"
+  description: "\uC77C\uC815 \uBC94\uC704 \uC548\uC5D0 \uC788\uB294 \uC801\uC744
+    \uAC10\uC9C0\uD574, \uACF5\uACA9\uD55C\uB2E4. "

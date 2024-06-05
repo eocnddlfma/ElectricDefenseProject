@@ -1,16 +1,32 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Agent
 {
-   [SerializeField] private UIManager uiManager;
-   [SerializeField] private StateMachine<GameMode> _stateMachine;
+   enum MoveBuildingOrder
+   {
+      None,
+      Grab,
+      Stay,
+   }
 
-   [Header("Physics")]
-   [SerializeField] private Rigidbody _rigidbodyCompo;
-   [SerializeField] private float _speed = 3f; 
+   [Header("Referecne")]
+   [SerializeField] private UIManager uiManager;
+
+   [Header("Compoents")]
+   [SerializeField] private StateMachine<GameMode> _stateMachine;
+   [SerializeField] private CursorShotVisual _cursorVisual;
+
+
+   [Header("Movement")]
+   [SerializeField] private float _speed = 3f;
+
+   [Header("Move Action")]
+   [SerializeField] private bool isMoveBuilding = false;
+   private Vector2Int _previousSelectedBuildingCellPosition;
+   private Vector3 _previousSelectedBuildingPosition;
+   [SerializeField] private Agent _selectedAgent = null;
+   [SerializeField] private MoveBuildingOrder _currentMoveOrder;
 
    private GameMode _previousState;
 
@@ -18,45 +34,391 @@ public class Player : Agent
    {
       uiManager = FindAnyObjectByType<UIManager>();
       _stateMachine.Intialize(this, GameMode.View);
+
+      InputUtil.Instance.OnClickEvent += OnClickHandle;
    }
 
+   private void OnClickHandle(bool isClickDown)
+   {
+      if (isClickDown && _selectedAgent is null)
+      {
+         _selectedAgent = Shot3DUtil.GetAgentOnCurrentCursor();
+         if(_selectedAgent is not null)
+         {
+            _previousSelectedBuildingPosition = _selectedAgent.transform.position;
+            _previousSelectedBuildingCellPosition = _selectedAgent.cellPosition;
+            _currentMoveOrder = MoveBuildingOrder.Grab;
+         }
+      }
+      else
+      {
+         _currentMoveOrder = MoveBuildingOrder.None;
+      }
+   }
 
    private void Update()
    {
       _stateMachine.Update();
 
-      if(_previousState != _stateMachine.State)
+      if (_previousState != _stateMachine.State)
       {
          OnStateChange(_previousState, _stateMachine.State);
       }
-      else
-      {
-         UpdateGameMode(_stateMachine.State);
-      }
+      UpdateGameMode(_stateMachine.State);
 
       _previousState = _stateMachine.State;
    }
 
    private void UpdateGameMode(GameMode currentState)
    {
-
-      if (currentState != GameMode.Shop
-         && currentState != GameMode.Upgrade)
-      {
-         MoveAction();
-      }
-
-         switch (currentState)
+      switch (currentState)
       {
          case GameMode.View:
+            Shot3DUtil
+               .SetCursorShotVisual(ToolBarEnum.None);
+            MoveAction();
             break;
+
          case GameMode.Build:
+            BuildAction();
+            MoveAction();
             break;
+
          case GameMode.Upgrade:
             break;
+
          case GameMode.Shop:
             break;
+
       }
+
+   }
+
+   private void BuildAction()
+   {
+      Shot3DUtil
+         .SetCursorShotVisual(uiManager.buildCanvas.CurrentToolbarType);
+
+      switch (uiManager.buildCanvas.CurrentToolbarType)
+      {
+         case ToolBarEnum.None:
+            break;
+
+         case ToolBarEnum.Add:
+            AddBuildingAction();
+            break;
+
+         case ToolBarEnum.Remove:
+            RemoveBuildingAction();
+            break;
+
+         case ToolBarEnum.Move:
+            MoveBuildingAction();
+            break;
+      }
+
+      bool isAdd = uiManager.buildCanvas.CurrentToolbarType == ToolBarEnum.Add;
+      uiManager.buildCanvas.IsBuildingBarActive = isAdd;
+   }
+
+   private void MoveBuildingAction()
+   {
+      CursorShotStateEnum cursorShotState = CursorShotStateEnum.Default;
+      Shot3DUtil.SetDrawingMesh(AgentType.None);
+
+      switch (_currentMoveOrder)
+      {
+         case MoveBuildingOrder.Grab:
+            cursorShotState = CursorShotStateEnum.CanBuild;
+            MapUtil.RemoveAgent(_selectedAgent);
+            _currentMoveOrder = MoveBuildingOrder.Stay;
+            break;
+
+         case MoveBuildingOrder.Stay:
+
+            if(Shot3DUtil.cursorCellType == AgentType.None)
+            {
+               cursorShotState = CursorShotStateEnum.CanBuild;
+            }
+            else
+            {
+               cursorShotState = CursorShotStateEnum.ImpossibleBuild;
+            }
+            _selectedAgent.transform.position
+               = Shot3DUtil.DrawingMeshPosition;
+
+            break;
+         case MoveBuildingOrder.None:
+            if(_selectedAgent is not null)
+            {
+               if (Shot3DUtil.cursorCellType == AgentType.None)
+               {
+                  _selectedAgent.cellPosition = Shot3DUtil.cursorCellPosition;
+                  MapUtil.RegisteAgent(_selectedAgent);
+
+                  Vector3 resultPos = Shot3DUtil.DrawingMeshPosition;
+
+                  resultPos.y = _previousSelectedBuildingPosition.y;
+                  _selectedAgent.transform.position = resultPos;
+
+
+                  if (_selectedAgent is EnergyLine)
+                     (_selectedAgent as EnergyLine).UpdateLine();
+                  if (_selectedAgent is HighWall)
+                     (_selectedAgent as HighWall).UpdateWall();
+
+                  Vector2Int updatePosition = Shot3DUtil.cursorCellPosition;
+
+                  foreach (Vector2Int direction in MapHelper.FourDirection)
+                  {
+                     Agent targetAgent = MapUtil.Instance[updatePosition + direction];
+                     if (targetAgent is EnergyLine)
+                     {
+                        (targetAgent as EnergyLine).UpdateLine();
+                     }
+                     if (targetAgent is HighWall)
+                     {
+                        (targetAgent as HighWall).UpdateWall();
+                     }
+                  }
+                  
+                  Vector2Int updatePosition2 = _previousSelectedBuildingCellPosition;
+
+                  foreach (Vector2Int direction in MapHelper.FourDirection)
+                  {
+                     Agent targetAgent = MapUtil.Instance[updatePosition2 + direction];
+                     if (targetAgent is EnergyLine)
+                     {
+                        (targetAgent as EnergyLine).UpdateLine();
+                     }
+                     if (targetAgent is HighWall)
+                     {
+                        (targetAgent as HighWall).UpdateWall();
+                     }
+                  }
+               }
+               else
+               {
+                  _selectedAgent.cellPosition = _previousSelectedBuildingCellPosition;
+                  MapUtil.RegisteAgent(_selectedAgent);
+
+                  _selectedAgent.transform.position = _previousSelectedBuildingPosition;
+               }
+
+               _selectedAgent = null;
+            }
+            break;
+      }
+
+      Shot3DUtil.currentCursorShotVisual
+              .SetState(cursorShotState, 0.1f);
+   }
+
+
+
+   private void RemoveBuildingAction()
+   {
+      CursorShotStateEnum cursorShotState = CursorShotStateEnum.CanBuild;
+      Shot3DUtil.SetDrawingMesh(AgentType.None);
+
+
+      if (Shot3DUtil.cursorCellType != AgentType.None)
+      {
+         IBuildingAgent agent = Shot3DUtil.GetAgentOnCurrentCursor() as IBuildingAgent;
+         if (agent is not null)
+         {
+            cursorShotState = CursorShotStateEnum.CanBuild;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+               Vector2Int removePosition = agent.cellPosition;
+
+               agent.Die();
+               
+               foreach (Vector2Int direction in MapHelper.FourDirection)
+               {
+                  Agent targetAgent = MapUtil.Instance[removePosition + direction];
+                  if (targetAgent is EnergyLine)
+                  {
+                     (targetAgent as EnergyLine).UpdateLine();
+                  }
+                  if (targetAgent is HighWall)
+                  {
+                     (targetAgent as HighWall).UpdateWall();
+                  }
+               }
+
+
+            }
+         }
+         else
+         {
+            cursorShotState = CursorShotStateEnum.ImpossibleBuild;
+         }
+      }
+      else
+      {
+         cursorShotState = CursorShotStateEnum.ImpossibleBuild;
+      }
+
+      
+
+      Shot3DUtil.currentCursorShotVisual
+              .SetState(cursorShotState, 0.1f);
+   }
+
+   private void AddBuildingAction()
+   {
+      CursorShotStateEnum cursorShotState = CursorShotStateEnum.Default;
+      AgentType currentBuildingType = uiManager.buildCanvas.CurrentBuildingType;
+      Shot3DUtil.SetDrawingMesh(currentBuildingType);
+
+
+      if (Shot3DUtil.cursorCellType == AgentType.None)
+      {
+         cursorShotState = CursorShotStateEnum.CanBuild;
+
+         if (Input.GetKeyDown(KeyCode.Space))
+         {
+            switch (uiManager.buildCanvas.CurrentBuildingType)
+            {
+               case AgentType.ArrowTower:
+                  ArrowTowerSpawn();
+                  break;
+
+               case AgentType.GoldStorage:
+                  GoldStorageSpawn();
+                  break;
+               case AgentType.GoldMinor:
+                  GoldMinorSpawn();
+                  break;
+               case AgentType.HighWall:
+                  HighWallSpawn();
+                  break;
+               case AgentType.LowWall:
+                  LowWallSpawn();
+                  break;
+               case AgentType.EnergyLine:
+                  EnergyLineSpawn();
+                  break;
+            }
+
+            Vector2Int addPosition = Shot3DUtil.cursorCellPosition;
+
+            foreach (Vector2Int direction in MapHelper.FourDirection)
+            {
+               Agent targetAgent = MapUtil.Instance[addPosition + direction];
+               if(targetAgent is EnergyLine)
+               {
+                  (targetAgent as EnergyLine).UpdateLine();
+               }
+               if (targetAgent is HighWall)
+               {
+                  (targetAgent as HighWall).UpdateWall();
+               }
+            }
+
+         }
+      }
+      else
+      {
+         cursorShotState = CursorShotStateEnum.ImpossibleBuild;
+      }
+
+      Shot3DUtil.currentCursorShotVisual
+            .SetState(cursorShotState, 0.1f);
+   }
+
+   private void LowWallSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      LowWall lowWall
+         = BuildingUtil.Pop<LowWall>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(lowWall);
+
+      lowWall.WaitForWakeUp(() =>
+      {
+         Debug.Log("LowWall 持失");
+         lowWall.transform.position = spawnPosition;
+      });
+   }
+
+   private void HighWallSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      HighWall highWall
+         = BuildingUtil.Pop<HighWall>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(highWall);
+
+      highWall.WaitForWakeUp(() =>
+      {
+         Debug.Log("HgihWall 持失");
+         highWall.transform.position = spawnPosition;
+         highWall.UpdateWall();
+      });
+   }
+
+   private void GoldMinorSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      GoldMinor goldMinor
+         = BuildingUtil.Pop<GoldMinor>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(goldMinor);
+
+      goldMinor.WaitForWakeUp(() =>
+      {
+         Debug.Log("GoldMinor 持失");
+         goldMinor.transform.position = spawnPosition;
+      });
+   }
+
+   private void GoldStorageSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      GoldStorage goldStorage
+         = BuildingUtil.Pop<GoldStorage>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(goldStorage);
+
+      goldStorage.WaitForWakeUp(() =>
+      {
+         Debug.Log("GoldStorage 持失");
+         goldStorage.transform.position = spawnPosition;
+      });
+   }
+
+   private void EnergyLineSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      spawnPosition.y = 0.1f;
+      EnergyLine energyLine
+         = BuildingUtil.Pop<EnergyLine>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(energyLine);
+
+      energyLine.WaitForWakeUp(() =>
+      {
+         Debug.Log("EnergyLine 持失");
+         energyLine.transform.position = spawnPosition;
+         energyLine.UpdateLine();
+      });
+   }
+
+   private static void ArrowTowerSpawn()
+   {
+      Vector3 spawnPosition = Shot3DUtil.DrawingMeshPosition;
+      ArrowTower arrowTower
+         = BuildingUtil.Pop<ArrowTower>(Shot3DUtil.cursorCellPosition);
+
+      MapUtil.RegisteAgent(arrowTower);
+
+      arrowTower.WaitForWakeUp(() =>
+      {
+         Debug.Log("Arrow 持失");
+         arrowTower.transform.position = spawnPosition;
+      });
    }
 
    private void MoveAction()
@@ -69,17 +431,7 @@ public class Player : Agent
 
    private void OnStateChange(GameMode previousMode, GameMode currentState)
    {
-
-      switch (currentState)
-      {
-         case GameMode.View:
-            break;
-         case GameMode.Build:
-            break;
-         case GameMode.Upgrade:
-            break;
-         case GameMode.Shop:
-            break;
-      }
+      bool isBuild = currentState == GameMode.Build;
+      Shot3DUtil.isActive = isBuild;
    }
 }

@@ -42,10 +42,10 @@ public class InputUtil : MonoSingleton<InputUtil>
 
 
    public static bool isClick;
-   private static Vector2 screenPosition;
-   public static Vector2 ScreenPosition
+   private static Vector2 mousePosition;
+   public static Vector2 MousePosition
    {
-      get => screenPosition;
+      get => mousePosition;
       set
       {
          Mouse mouse = Mouse.current;
@@ -63,7 +63,7 @@ public class InputUtil : MonoSingleton<InputUtil>
    private void Awake()
    {
       InitInputControl();
-      ScreenPosition = Vector2.zero;
+      MousePosition = Vector2.zero;
    }
 
    private void InitInputControl()
@@ -81,20 +81,20 @@ public class InputUtil : MonoSingleton<InputUtil>
       if (context.performed)
       {
          isClick = true;
-         OnClickEvent?.Invoke(isClick);
+         OnClickEvent?.Invoke(true);
       }
       else if (context.canceled)
       {
          isClick = false;
-         OnClickEvent?.Invoke(isClick);
+         OnClickEvent?.Invoke(false);
       }
 
    }
 
    public void OnMouseMove(InputAction.CallbackContext context)
    {
-      screenPosition = context.ReadValue<Vector2>();
-      OnMouseMoveEvent?.Invoke(screenPosition);
+      mousePosition = context.ReadValue<Vector2>();
+      OnMouseMoveEvent?.Invoke(mousePosition);
    }
 
    public void OnMove(InputAction.CallbackContext context)
@@ -102,7 +102,7 @@ public class InputUtil : MonoSingleton<InputUtil>
       if (context.performed)
       {
          moveDirection = context.ReadValue<Vector2>();
-         OnMoveEvent?.Invoke(screenPosition);
+         OnMoveEvent?.Invoke(mousePosition);
       }
       else
       {

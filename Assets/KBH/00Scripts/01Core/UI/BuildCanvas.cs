@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,7 @@ public class BuildCanvas : UIAgent
 
    [Header("BuildingList")]
    [SerializeField] private RectTransform _buildingContainerTrm;
+   private Vector3 _buildingContainerStartPosition;
    [SerializeField] private RectTransform _buildingSpotLightImageTrm;
    [SerializeField] private List<BuildingPostInfo> _buildingInfos;
    private Dictionary<AgentType, RectTransform> _buildingInfoDictionary;
@@ -60,6 +62,34 @@ public class BuildCanvas : UIAgent
             = _buildingInfoDictionary[value].position;
       }
    }
+
+
+   private bool isBuildingBarActive = true;
+   public bool IsBuildingBarActive
+   {
+      get => IsBuildingBarActive;
+      set
+      {
+         if(isBuildingBarActive != value)
+         {
+            float transitionTime = 0.25f;
+            if (value)
+            {
+               _buildingContainerTrm
+                  .DOMove(_buildingContainerStartPosition, transitionTime);
+            }
+            else
+            {
+               _buildingContainerTrm
+                  .DOAnchorPos(_buildingContainerTrm.sizeDelta.y * Vector2.down
+                  , transitionTime);
+            }
+
+            isBuildingBarActive = value;
+         }
+      }
+   }
+
 
    private void Awake()
    {
@@ -111,6 +141,8 @@ public class BuildCanvas : UIAgent
       }
 
       CurrentBuildingType = AgentType.ArrowTower;
+
+      _buildingContainerStartPosition = _buildingContainerTrm.position;
    }
 
 }

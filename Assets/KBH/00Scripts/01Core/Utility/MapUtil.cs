@@ -1,49 +1,135 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapUtil : MonoSingleton<MapUtil>
 {
-   
-
    [Header("Map Settings")]
-   [SerializeField] private Vector2 center;
-   [SerializeField] private Vector2Int mapArea;
-   [SerializeField] private float scale;
-   [SerializeField] private float height = 2f;
-   [SerializeField] private int seed;
-   [SerializeField] [Range(0, 1)] private float RockSpawnFrequency;
-   [SerializeField] [Range(0, 1)] private float GoldRate;
+   [SerializeField] private Vector2Int _mapArea;
+   [SerializeField] private float _scale;
+   [SerializeField] private float _height = 2f;
+   [SerializeField] private int _seed;
+   [SerializeField] [Range(0, 1)] private float _rockSpawnFrequency;
+   [SerializeField] [Range(0, 1)] private float _goldRate;
 
    [Header("Mesh Combine")]
-   [SerializeField] private float cellScale = 1f;
+   [SerializeField] private float _cellScale = 1f;
    [SerializeField] private Mesh _blockMesh;
    [SerializeField] private MeshFilter _goldMeshCombiner;
    [SerializeField] private MeshFilter _rockMeshCombiner;
-
+   
    [Header("Map Data")]
-   [SerializeField] private MapBlockType[,] mapInfo;
+   [SerializeField] private AgentType[,] _mapInfo;
+   public AgentType this[int x, int y]
+   {
+      get
+      {
+         if(x < _mapArea.x && x >= 0
+            && y < _mapArea.y && y >= 0)
+         {
+            if(_agentRegisteDictionary
+               .TryGetValue(new Vector2Int(x, y), out Agent result))
+            {
+               return result.agentType;
+            }
+            else
+            {
+               return _mapInfo[x, y];
+            }
+         }
+         else
+         {
+            return AgentType.None;
+         }
+      }
+   }
+
+   public Agent this[Vector2Int position]
+   {
+      get
+      {
+         if (position.x < _mapArea.x && position.x >= 0
+            && position.y < _mapArea.y && position.y >= 0)
+         {
+            if (_agentRegisteDictionary
+               .TryGetValue(position, out Agent result))
+            {
+               return result;
+            }
+            else
+            {
+               return null;
+            }
+         }
+         return null;
+      }
+   }
+
+   [Header("Block Mesh Visual")]
+   [SerializeField] private MeshRenderer _goldMeshRenderer;
+   [SerializeField] private MeshCollider _goldMeshCollider;
+
+   [SerializeField] private MeshRenderer _rockMeshRenderer;
+   [SerializeField] private MeshCollider _rockMeshCollider;
+
+   private readonly int _percentHash = Shader.PropertyToID("_Percent");
+
+   [Header("Bottom Mesh Visual")]
+   [SerializeField] private MeshRenderer _bottomMeshRenderer;
+   [SerializeField] private float _bottomStroke = 0.05f;
+   private readonly int _centerHash = Shader.PropertyToID("_Center");
+   private readonly int _UnitHash = Shader.PropertyToID("_Unit");
+   private readonly int _StrokeHash = Shader.PropertyToID("_Stroke");
+
+   private Dictionary<Vector2Int, Agent> _agentRegisteDictionary
+      = new Dictionary<Vector2Int, Agent>();
+
+
+#if UNITY_EDITOR
+
+   [Header("Debugger")]
+   [SerializeField] private Vector2Int position;
+
+   private void OnDrawGizmos()
+   {
+      Gizmos.color = Color.red;
+      Gizmos.DrawCube(CellToWorld(position), new Vector3(1, 10, 1));
+   }
+
+#endif
 
    private void Awake()
    {
       GenerateMap();
+      SetMaterial(isShow : true, 2f);
    }
+
+
 
    private void GenerateMap()
    {
-      mapInfo = new MapBlockType[mapArea.x, mapArea.y];
+      _mapInfo = new AgentType[_mapArea.x, _mapArea.y];
       List<CombineInstance> goldCombineList = new List<CombineInstance>();
       List<CombineInstance> rockCombineList = new List<CombineInstance>();
 
-      for (int i = 0; i < mapArea.y; ++i)
-      {
-         for (int j = 0; j < mapArea.x; ++j)
-         {
-            float perlin = Mathf.PerlinNoise(j / (float)mapArea.x * scale + seed, i / (float)mapArea.y * scale + seed);
+      Vector2 center = (Vector2)(_mapArea / 2) * _cellScale;
+      _bottomMeshRenderer.material.SetVector(_centerHash, center);
+      _bottomMeshRenderer.material.SetVector(_UnitHash, Vector2.one * _cellScale);
+      _bottomMeshRenderer.material.SetFloat(_StrokeHash, _bottomStroke);
 
-            Debug.Log(WorldToCell(new Vector3(j - center.x, 0, i - center.y)));
-            if (perlin >= RockSpawnFrequency)
+      for (int i = 0; i < _mapArea.y; ++i)
+      {
+         for (int j = 0; j < _mapArea.x; ++j)
+         {
+            float xAmount = j * _cellScale;
+            float yAmount = i * _cellScale;
+
+            float perlin = Mathf.PerlinNoise(j / (float)_mapArea.x * _scale + _seed, i / (float)_mapArea.y * _scale + _seed);
+
+            if (perlin >= _rockSpawnFrequency)
             {
-               mapInfo[j, i] = MapBlockType.None;
+               _mapInfo[j, i] = AgentType.None;
+               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
                continue;
             }
 
@@ -51,17 +137,21 @@ public class MapUtil : MonoSingleton<MapUtil>
             float result = perlin;
 
 
-            if (GoldRate >= perlin * (1 / RockSpawnFrequency))
+            if (_goldRate >= perlin * (1 / _rockSpawnFrequency))
             {
-               result = perlin - GoldRate;
+               result = perlin - _goldRate;
                isRock = false;
             }
 
-            result = result * height * (1f / RockSpawnFrequency);
+            result = result * _height * (1f / _rockSpawnFrequency);
 
 
 
-            Matrix4x4 meshTrm = Matrix4x4.TRS(new Vector3(j - center.x, 0, i - center.y), Quaternion.identity, new Vector3(1, result, 1) * cellScale);
+            Matrix4x4 meshTrm = Matrix4x4.TRS(
+               new Vector3(xAmount - center.x, 0, yAmount - center.y),  // Position
+               Quaternion.identity,  // Rotation
+               new Vector3(1, result, 1) * _cellScale); // Scale
+
             Mesh copiedMesh = Instantiate(_blockMesh);
 
             CombineInstance targetPrefabCombine = new CombineInstance();
@@ -71,12 +161,14 @@ public class MapUtil : MonoSingleton<MapUtil>
             if (isRock)
             {
                rockCombineList.Add(targetPrefabCombine);
-               mapInfo[j, i] = MapBlockType.Rock;
+               _mapInfo[j, i] = AgentType.Rock;
+               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
             }
             else
             {
                goldCombineList.Add(targetPrefabCombine);
-               mapInfo[j, i] = MapBlockType.Gold;
+               _mapInfo[j, i] = AgentType.Gold;
+               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
             }
 
          }
@@ -84,30 +176,80 @@ public class MapUtil : MonoSingleton<MapUtil>
 
 
       var rockMesh = new Mesh();
-      rockMesh.CombineMeshes(rockCombineList.ToArray());
+      rockMesh.CombineMeshes(rockCombineList.ToArray()); 
       _rockMeshCombiner.mesh = rockMesh;
+      _rockMeshCollider.sharedMesh = rockMesh;
 
       var goldMesh = new Mesh();
       goldMesh.CombineMeshes(goldCombineList.ToArray());
       _goldMeshCombiner.mesh = goldMesh;
+      _goldMeshCollider.sharedMesh = goldMesh;
    }
 
    public static Vector2Int WorldToCell(Vector3 position)
    {
-      MapUtil mapUtil = Instance;
-      Vector2 newPos = new Vector2(position.x, position.z) + mapUtil.center;
-      Vector2Int cellPos =  Vector2Int.FloorToInt(newPos);
+      Vector2Int cellPos
+         =  new Vector2Int(
+            (int)((position.x + ((float)Instance._mapArea.x/2)) / Instance._cellScale), 
+            (int)((position.z + ((float)Instance._mapArea.y/2)) / Instance._cellScale));
       return cellPos;
    }
 
-
-   public static MapBlockType WorldToCellType(Vector3 position)
+   public static Vector3 CellToWorld(Vector2Int cellPos)
    {
-      Vector2Int cellPos = WorldToCell(position);
-      return Instance.mapInfo[cellPos.x, cellPos.y];
+      Vector3 result = new Vector3(cellPos.x, 0, cellPos.y);
+      Vector3 center = new Vector3(Instance._mapArea.x / 2, 0, Instance._mapArea.y / 2);
+      result -= center;
+
+      return result;
+   }
+
+
+   public static void SetMaterial(bool isShow, float time)
+   {
+      if (isShow)
+      {
+         Instance._goldMeshRenderer.material.DOFloat(0, Instance._percentHash, time);
+         Instance._rockMeshRenderer.material.DOFloat(0, Instance._percentHash, time);
+      }
+      else
+      {
+         Instance._goldMeshRenderer.material.DOFloat(1, Instance._percentHash, time);
+         Instance._rockMeshRenderer.material.DOFloat(1, Instance._percentHash, time);
+      }
    }
 
    
+   public static AgentType WorldToCellType(Vector3 position)
+   {
+      Vector2Int cellPos = WorldToCell(position);
+      return Instance._mapInfo[cellPos.x, cellPos.y];
+   }
 
+   public static void RegisteAgent(Agent agent)
+   {
+      if(!Instance._agentRegisteDictionary.ContainsKey(agent.cellPosition))
+      {
+         Instance._agentRegisteDictionary[agent.cellPosition] = agent;
+      }
+   }
 
+   public static void RemoveAgent(Agent agent)
+   {
+      if(Instance._agentRegisteDictionary.ContainsKey(agent.cellPosition))
+      {
+         Instance._agentRegisteDictionary.Remove(agent.cellPosition);
+      }
+   }
+}
+
+public static class MapHelper
+{
+   public readonly static Vector2Int[] FourDirection = new Vector2Int[4]
+   {
+      Vector2Int.right,
+      Vector2Int.left,
+      Vector2Int.up,
+      Vector2Int.down
+   };
 }

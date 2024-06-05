@@ -7,24 +7,31 @@ using UnityEngine.UI;
 
 public class CoreCanvas : UIAgent
 {
-   public Button modeSwapBtn;
+   [SerializeField] private Button _modeSwapBtn;
    [SerializeField] private TextMeshProUGUI _modeShowText;
+   
+   private int currentIdx = 0;
    public GameMode currentMode;
+   public event Action<GameMode> OnModeChangeEvent;
 
    [SerializeField] private GameMode[] _modeNames;
+   
 
    private void Awake()
    {
-      modeSwapBtn.onClick.AddListener(OnModeChange);
+      _modeSwapBtn.onClick.AddListener(OnModeChange);
    }
 
    private void OnModeChange()
    {
-      currentMode = (GameMode)(((int)currentMode + 1) % _modeNames.Length);
+      currentIdx = (currentIdx + 1) % _modeNames.Length;
+      currentMode = _modeNames[currentIdx];
+
       _modeShowText.text
          = @$"Mode
-<b>{_modeNames[(int)currentMode]}</b>";
+<b>{_modeNames[currentIdx]}</b>";
 
+      OnModeChangeEvent?.Invoke(currentMode);
    }
 
 

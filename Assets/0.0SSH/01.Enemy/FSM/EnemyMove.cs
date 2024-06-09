@@ -19,17 +19,17 @@ public class EnemyMove : EnemyState
     public override bool CanChangeToOther(ref EnemyStateEnum state)
     {
         
-        if (_enemyReference._enemyStatus.moveTargetPriority == EnemyTargetPriorityEnum.CommandHousePrior)
+        if (_enemyReference._status.moveTargetPriority == EnemyTargetPriorityEnum.CommandHousePrior)
         {
             if (EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
             {
                 _enemyReference.target = EnemyRouteManager.Instance.CommandBuilding;
             }
         }
-        else if (_enemyReference._enemyStatus.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior)
+        else if (_enemyReference._status.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior)
         {
             var hits = Physics.SphereCastNonAlloc(
-                transform.position, _enemyReference._enemyStatus.attackRadius,//보이는 곳에 자원 빌딩이 있는가?
+                transform.position, _enemyReference._status.attackRadius,//보이는 곳에 자원 빌딩이 있는가?
                 Vector3.up, _raycastHits, 0f, 7);//layer7 == resourcebuilding
 
             if (hits > 0)
@@ -43,7 +43,8 @@ public class EnemyMove : EnemyState
         {
             //TargetBuilding = GetClosestBuilding();
         }
-
+        
+        
         _enemyReference.target = EnemyRouteManager.Instance.CommandBuilding;//forTest;
         _enemyReference._navMeshAgent.SetDestination(_enemyReference.target.transform.position);
         
@@ -52,7 +53,7 @@ public class EnemyMove : EnemyState
             //Debug.LogError("야임마 길 없어!!");
         }
         if (Vector3.Distance(_enemyReference.target.transform.position, transform.position) <
-            _enemyReference._enemyStatus.attackRadius)
+            _enemyReference._status.attackRadius)
         {
             state = EnemyStateEnum.Attack;
             return true;

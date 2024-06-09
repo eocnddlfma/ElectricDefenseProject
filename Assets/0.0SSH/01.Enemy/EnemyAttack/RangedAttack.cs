@@ -8,4 +8,6 @@ public class RangedAttack : BaseEnemyAttack
     {
         Instantiate(AttackEffect, parent);
     }
+    
+    
 }

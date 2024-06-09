@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttack : EnemyState
 {
     private bool isAttackFinished;
-    private int animationLength; //fps 60이라 가정
+    //private int animationLength; //fps 60이라 가정
     public override void Enter()
     {
         base.Enter();

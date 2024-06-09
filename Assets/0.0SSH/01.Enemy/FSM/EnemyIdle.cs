@@ -21,6 +21,7 @@ public class EnemyIdle : EnemyState
         if (!_enemyReference._navMeshAgent.enabled)
         {
             _enemyReference._navMeshAgent.enabled = true;
+            return false;
         }
 
         state = EnemyStateEnum.Move;

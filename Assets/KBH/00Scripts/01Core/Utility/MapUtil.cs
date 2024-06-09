@@ -129,7 +129,7 @@ public class MapUtil : MonoSingleton<MapUtil>
             if (perlin >= _rockSpawnFrequency)
             {
                _mapInfo[j, i] = AgentType.None;
-               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
+               //Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
                continue;
             }
 

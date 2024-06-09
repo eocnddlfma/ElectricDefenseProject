@@ -15,6 +15,6 @@ public class BaseEnemyAttack : MonoBehaviour
 
     public virtual void Attack(Transform parent, Agent target)
     {
-        target.health.DoDamage(_agent.agentStatus.damage);
+        target.health.DoDamage(_agent.status.damage);
     }
 }

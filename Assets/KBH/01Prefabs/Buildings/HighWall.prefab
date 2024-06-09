@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6938962661424978663}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Connections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7680191358003774169}
   - component: {fileID: 5632172396743159716}
   - component: {fileID: 818269768860966524}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4687262129320178871}
   - component: {fileID: 1197607233076422165}
   - component: {fileID: 5682530532326249097}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 396197873589229356}
   - component: {fileID: -5723455034750401386}
   - component: {fileID: -2253744261614903393}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: HighWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentType: 4
-  agentStatus: {fileID: 0}
+  status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2b438f18aa9614fac94df73593e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  _agent: {fileID: 0}
 --- !u!1 &3867379230517431448
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 1738017998906303102}
   - component: {fileID: 5598451241113464790}
   - component: {fileID: 282385116803654037}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 4577245987067775129}
   - component: {fileID: 167167619029542306}
   - component: {fileID: 4937319517217582328}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 4691121113431458648}
   - component: {fileID: 8649349828797619944}
   - component: {fileID: 4878987205137129006}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 8337760152410103505}
   - component: {fileID: 250762192610808918}
   - component: {fileID: 7756410847161445410}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,9 +761,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4962390675278072464, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5792594388741362343, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768161126614236019, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7959799769627597539, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959799769627597539, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

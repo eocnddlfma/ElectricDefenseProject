@@ -20,4 +20,11 @@ public class EnemyReference : StatesReference<EnemyStateEnum>
         _status = _enemy.status as EnemyStatus;
         _baseEnemyAttack = _enemy._enemyAttack;
     }
+
+    public bool hasTarget()
+    {
+        if (target)
+            return true;
+        return false;
+    }
 }

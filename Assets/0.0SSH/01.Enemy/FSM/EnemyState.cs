@@ -22,7 +22,7 @@ public abstract class EnemyState : State<EnemyStateEnum>
 
     public override void Exit()
     {
-        base.Exit();
         _enemyReference._animator.SetBool(animationHash, false);
+        base.Exit();
     }
 }

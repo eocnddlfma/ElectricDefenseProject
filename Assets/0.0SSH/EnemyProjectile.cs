@@ -12,15 +12,16 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField]private Vector3 endPoint;
     [SerializeField]private Vector3 controlPoint;
 
-    void Start()
+    public void Setting(Vector3 start, Vector3 end)
     {
-        startPoint = transform.position;
-        endPoint = target.position;
+        startPoint = start;
+        endPoint = end;
         controlPoint = (startPoint + endPoint) / 2 + controlPointOffset;
         
+        print("debugarrow");
         StartCoroutine(MoveAlongBezierCurve());
     }
-
+    
     IEnumerator MoveAlongBezierCurve()
     {
         float elapsedTime = 0f;
@@ -34,6 +35,7 @@ public class EnemyProjectile : MonoBehaviour
         }
 
         transform.position = endPoint;
+        Destroy(gameObject);
     }
 
     Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)

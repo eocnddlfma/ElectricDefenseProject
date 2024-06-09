@@ -162,13 +162,13 @@ public class MapUtil : MonoSingleton<MapUtil>
             {
                rockCombineList.Add(targetPrefabCombine);
                _mapInfo[j, i] = AgentType.Rock;
-               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
+               //Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
             }
             else
             {
                goldCombineList.Add(targetPrefabCombine);
                _mapInfo[j, i] = AgentType.Gold;
-               Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
+               //Debug.Log($"({j},{i}) : {_mapInfo[j, i]} ");
             }
 
          }

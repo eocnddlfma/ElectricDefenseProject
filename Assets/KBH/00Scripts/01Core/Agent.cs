@@ -18,6 +18,7 @@ public class Agent : MonoBehaviour
    public virtual void Awake()
    {
       Debug.Log("awa");
+      Debug.Log(this);
       health.Initialize(this);
    }
 

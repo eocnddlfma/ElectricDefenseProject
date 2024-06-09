@@ -28,12 +28,14 @@ public class Building<T> : Agent, IBuildingAgent
 
    public override void Awake()
    {
-      base.Awake();
       mainStateMachine.Intialize(this, BuildingBaseStateEnum.Stay);
       _meshRenderer = transform.Find("Visual")
          .GetComponent<MeshRenderer>();
 
+      health = transform.Find("HealthBar").GetComponent<Health>();
+      damageCaster = GetComponent<DamageCaster>();
       _material = _meshRenderer.material;
+      base.Awake();
    }
 
 

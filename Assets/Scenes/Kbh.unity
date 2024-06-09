@@ -5902,8 +5902,8 @@ MonoBehaviour:
   _height: 2.5
   _seed: 100
   _rockSpawnFrequency: 0.2
-  _goldRate: 1
-  _cellScale: 0.1
+  _goldRate: 0.1
+  _cellScale: 1
   _blockMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _goldMeshCombiner: {fileID: 1625543035}
   _rockMeshCombiner: {fileID: 1130579969}

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DamageCaster : MonoBehaviour
 {
-    public Agent agent;
+    public Agent _agent;
     public void Initialize(Agent agent)
     {
-        this.agent = agent;
+        _agent = agent;
     }
     
     public void CastDamage(Agent target)
     {
-        target.health.DoDamage(agent.agentStatus.damage);
+        target.health.DoDamage(_agent.status.damage);
     }
 }

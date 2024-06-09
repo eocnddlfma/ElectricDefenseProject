@@ -9,10 +9,10 @@ public class Enemy : Agent
 {
     public NavMeshAgent _navMeshAgent;
     [SerializeField] private StateMachine<EnemyStateEnum> _stateMachine;
-    public EnemyStatus _status;
     public BaseEnemyAttack _enemyAttack;
-    public DamageCaster damageCaster;
-
+    public DamageCaster _damageCaster;
+    public Animator animatiorComponent;
+    
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -24,7 +24,8 @@ public class Enemy : Agent
         _stateMachine.Intialize(this, EnemyStateEnum.Idle);
         
         _enemyAttack.Initialize(this);
-        damageCaster.Initialize(this);
+        _damageCaster.Initialize(this);
+        base.Awake();
     }
 
     private void Start()

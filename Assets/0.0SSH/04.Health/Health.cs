@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private Agent _agent;
     [SerializeField] private HealthBar _healthBar;
-
+    private float _stunTime;
     public int Hp
     {
         get => hp;
@@ -28,16 +28,24 @@ public class Health : MonoBehaviour
     public void Initialize(Agent agent)
     {
         _agent = agent;
-        maxHp = agent.agentStatus.maxHp;
+        Debug.Log(agent.status);
+        maxHp = agent.status.maxHp;
         Hp = maxHp;
     }
 
     public void DoDamage(int damage)
     {
         Hp = hp - damage;
-        if(hp<0)
-            _agent.Die();
+        if(hp<0){}
+            //_agent.Die();
             
+    }
+    public void DoDamage(int damage, float stunTime)
+    {
+        Hp = hp - damage;
+        if(hp<0){}
+            //_agent.Die();
+        _stunTime = stunTime;
     }
 
     public void GetHeal(int heal)

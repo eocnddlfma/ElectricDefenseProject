@@ -18,8 +18,18 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
     {
         //CommandBuilding = GameObject.Find("CommandBuilding");
         MapChanged();
+        StartCoroutine(UpdateMap());
     }
 
+    public IEnumerator UpdateMap()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+            MapChanged();
+        }
+    }
+    
     public bool HasRouteToBuilding(NavMeshAgent navMeshAgent)
     {
         if (navMeshAgent.hasPath)

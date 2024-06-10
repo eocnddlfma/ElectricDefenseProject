@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 6072964955043720465}
   - component: {fileID: 22152961440056918}
   - component: {fileID: 8041877978237432667}
+  - component: {fileID: 6736809364705384952}
   m_Layer: 7
   m_Name: GoldStorage
   m_TagString: Untagged
@@ -181,6 +182,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 0}
+--- !u!208 &6736809364705384952
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718399377875135854}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3934386911331078956
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
 {
-    private List<Transform> GeneratePos;
-    private List<Transform> AbleGeneratePos;
+    public List<Transform> GeneratePos;
+    public List<Transform> AbleGeneratePos;
     [SerializeField] private float buildingCheckDistance;
     [SerializeField] private EnemyTableSO _enemyTableSO;
 
@@ -18,7 +18,8 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
         
         _dictionary = new Dictionary<EnemyType, GameObject>();
         _enemyTableSO.list.ForEach((a) => _dictionary.Add(a.type, a.prefab));
-        GeneratePos = transform.GetComponentsInChildren<Transform>().ToList();
+        GeneratePos = transform.Find("EnemyGenerator").GetComponentsInChildren<Transform>().ToList();
+        GeneratePos.RemoveAt(0);
     }
 
     private RaycastHit[] _raycastHits;
@@ -46,6 +47,7 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
         Vector3 pos = AbleGeneratePos[a].position;
         pos += new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5f, 5f));
         Debug.Log("randomPos :" + pos);
+        pos = Vector3.Lerp(Vector3.zero, pos, WaveManager.Instance._wave / 14f);
         return pos;
     }
 

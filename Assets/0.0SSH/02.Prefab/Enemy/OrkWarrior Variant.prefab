@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6508642958805676324, guid: 935bdf36421b06140a6d958d8bdb87e2, type: 3}
       propertyPath: attackRadius
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7780388600209937378, guid: 935bdf36421b06140a6d958d8bdb87e2, type: 3}
       propertyPath: _animator

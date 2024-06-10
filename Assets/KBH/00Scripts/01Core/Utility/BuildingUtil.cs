@@ -12,6 +12,8 @@ public class BuildingUtil : MonoSingleton<BuildingUtil>
       public Transform parent;
    }
 
+   public List<Agent> buildingList;
+
    [SerializeField] private BuildingPoolData[] _poolDataList;
    private Dictionary<AgentType, Stack<Agent>> _agentPoolDictionary;
    private Dictionary<AgentType, BuildingPoolData> _agentPoolDataDictionary;
@@ -43,6 +45,7 @@ public class BuildingUtil : MonoSingleton<BuildingUtil>
                = Instantiate(_poolDataList[i].buildingPrefab, targetPoolTypeParent);
             agent.gameObject.SetActive(false);
             _agentPoolDictionary[poolType].Push(agent);
+            buildingList.Add(agent);
          }
       }
    }

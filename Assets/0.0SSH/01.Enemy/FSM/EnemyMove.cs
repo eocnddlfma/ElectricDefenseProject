@@ -29,12 +29,15 @@ public class EnemyMove : EnemyState
         else if (_enemyReference._status.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior)
         {
             var hits = Physics.SphereCastNonAlloc(
-                transform.position, _enemyReference._status.attackRadius,//보이는 곳에 자원 빌딩이 있는가?
-                Vector3.up, _raycastHits, 0f, 7);//layer7 == resourcebuilding
+                transform.position, _enemyReference._status.attackRadius/3,//보이는 곳에 벽 빌딩이 있는가?
+                Vector3.up, _raycastHits, 0f, 8);//layer8 == wallbuilding
 
             if (hits > 0)
             {
-                _enemyReference.target = _raycastHits[0].transform.GetComponent<Agent>();
+                foreach(var a in _raycastHits)
+                {
+                    a.transform.GetComponent<IBuildingAgent>().Die();
+                }
             }
             
             
@@ -46,7 +49,18 @@ public class EnemyMove : EnemyState
         
         
         _enemyReference.target = EnemyRouteManager.Instance.CommandBuilding;//forTest;
-        _enemyReference._navMeshAgent.SetDestination(_enemyReference.target.transform.position);
+        if (_enemyReference.hasTarget())
+        {
+            _enemyReference._navMeshAgent.SetDestination(_enemyReference.target.transform.position);
+        }
+        else
+        {
+            _enemyReference._navMeshAgent.SetDestination(new Vector3(0, 0, 0));
+        }
+            
+            
+
+        
         
         if(EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
         {

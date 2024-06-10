@@ -20,6 +20,10 @@ public class Enemy : Agent
         {
             _enemyAttack = GetComponent<MeleeAttack>() as BaseEnemyAttack;
         }
+        if (GetComponent<RangedAttack>())
+        {
+            _enemyAttack = GetComponent<RangedAttack>() as BaseEnemyAttack;
+        }
         Debug.Log(_enemyAttack);
         _stateMachine.Intialize(this, EnemyStateEnum.Idle);
         

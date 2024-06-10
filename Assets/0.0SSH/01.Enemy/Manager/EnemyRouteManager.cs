@@ -40,4 +40,8 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
     {
         return CommandBuilding.transform;
     }
+    public void SetCommandBuilding(Agent agent)
+    {
+        CommandBuilding = agent;
+    }
 }

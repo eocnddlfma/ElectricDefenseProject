@@ -28,18 +28,28 @@ public class Health : MonoBehaviour
     public void Initialize(Agent agent)
     {
         _agent = agent;
-        Debug.Log(agent.status);
+        Debug.Log(_agent.status.name);
         maxHp = agent.status.maxHp;
         Hp = maxHp;
     }
 
+    /** 즉시 데미지 */
     public void DoDamage(int damage)
     {
         Hp = hp - damage;
         if(hp<0){}
-            //_agent.Die();
+        //_agent.Die();
             
     }
+    /** 딜레이 데미지 */
+    public void DoDamage(float waitSecond ,int damage)
+    {
+        StartCoroutine(DamageTimer(waitSecond, damage));
+        if(hp<0){}
+        //_agent.Die();
+            
+    }
+    /** 스턴 데미지 */
     public void DoDamage(int damage, float stunTime)
     {
         Hp = hp - damage;
@@ -51,6 +61,12 @@ public class Health : MonoBehaviour
     public void GetHeal(int heal)
     {
         Hp = hp + heal;
+    }
+
+    IEnumerator DamageTimer(float timer, int damage)
+    {
+        yield return new WaitForSeconds(timer);
+        Hp = hp - damage;
     }
 
 }

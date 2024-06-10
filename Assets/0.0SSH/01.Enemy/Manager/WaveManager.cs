@@ -10,7 +10,20 @@ public class WaveManager : MonoSingleton<WaveManager>
     public float MaxWaveTime;
     public int _wave;
 
-    public List< List< Tuple<int, EnemyType>>> EnemyPerWave;//이거 데이터 어떻게 넣을건지 상의
+    [SerializeField] private List<EnemyWaveInfoList> EnemyPerWave;//이거 데이터 어떻게 넣을건지 상의
+
+    [System.Serializable]
+    struct EnemyWaveInfo
+    {
+        public EnemyType enemy;
+        public int num;
+    }
+
+    [System.Serializable]
+    struct EnemyWaveInfoList
+    {
+        public List<EnemyWaveInfo> _enemyWaveInfos;
+    }
     private void Start()
     {
         _wave = 0;
@@ -24,7 +37,7 @@ public class WaveManager : MonoSingleton<WaveManager>
         while (_wave < 31)
         {
             _wave++;
-            EnemyPerWave[_wave].ForEach( a=> EnemyGeneratorManager.Instance.GenerateEnemy(a.Item1, a.Item2));
+            EnemyPerWave[_wave]._enemyWaveInfos.ForEach( a=> EnemyGeneratorManager.Instance.GenerateEnemy(a.num, a.enemy));
             uiManager.viewCanvas.WaveText = _wave.ToString();
             while (CurrentWaveTime < MaxWaveTime)
             {

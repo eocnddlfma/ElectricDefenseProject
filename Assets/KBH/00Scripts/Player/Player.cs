@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using Cinemachine;
+using DG.Tweening;
 
 public class Player : Agent
 {
@@ -17,25 +19,36 @@ public class Player : Agent
    [SerializeField] private StateMachine<GameMode> _stateMachine;
    [SerializeField] private CursorShotVisual _cursorVisual;
 
+   private GameMode _previousState;
 
    [Header("Movement")]
    [SerializeField] private float _speed = 3f;
 
-   [Header("Move Action")]
+   [Header("Building Move Action")]
    [SerializeField] private bool isMoveBuilding = false;
    private Vector2Int _previousSelectedBuildingCellPosition;
    private Vector3 _previousSelectedBuildingPosition;
    [SerializeField] private Agent _selectedAgent = null;
    [SerializeField] private MoveBuildingOrder _currentMoveOrder;
 
-   private GameMode _previousState;
 
-   private void Awake()
+   [Header("Building Upgrade Action")]
+   [SerializeField] private IBuildingAgent _selectedUpgradeAgent;
+
+   [Header("Cam Control")]
+   [SerializeField] private CinemachineVirtualCamera _virtualCam;
+   [SerializeField] private CinemachineTransposer _camTransposer;
+   [SerializeField] private Vector3 _viewCamOffset;
+   [SerializeField] private Vector3 _UpgradeCamOffset;
+   [SerializeField] private Vector2 onUpgradeDamping;
+
+   public override void Awake()
    {
       uiManager = FindAnyObjectByType<UIManager>();
       _stateMachine.Intialize(this, GameMode.View);
 
       InputUtil.Instance.OnClickEvent += OnClickHandle;
+      _camTransposer = _virtualCam.GetCinemachineComponent<CinemachineTransposer>();
    }
 
    private void OnClickHandle(bool isClickDown)
@@ -85,6 +98,7 @@ public class Player : Agent
             break;
 
          case GameMode.Upgrade:
+            UpgradeAction();
             break;
 
          case GameMode.Shop:
@@ -92,6 +106,10 @@ public class Player : Agent
 
       }
 
+   }
+
+   private void UpgradeAction()
+   {
    }
 
    private void BuildAction()
@@ -230,24 +248,7 @@ public class Player : Agent
             cursorShotState = CursorShotStateEnum.CanBuild;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-               Vector2Int removePosition = agent.cellPosition;
-
                agent.Die();
-               
-               foreach (Vector2Int direction in MapHelper.FourDirection)
-               {
-                  Agent targetAgent = MapUtil.Instance[removePosition + direction];
-                  if (targetAgent is EnergyLine)
-                  {
-                     (targetAgent as EnergyLine).UpdateLine();
-                  }
-                  if (targetAgent is HighWall)
-                  {
-                     (targetAgent as HighWall).UpdateWall();
-                  }
-               }
-
-
             }
          }
          else
@@ -429,9 +430,40 @@ public class Player : Agent
       transform.position += newMovedir * (Time.deltaTime * _speed);
    }
 
-   private void OnStateChange(GameMode previousMode, GameMode currentState)
+   private void OnStateChange(GameMode previousState, GameMode currentState)
    {
       bool isBuild = currentState == GameMode.Build;
       Shot3DUtil.isActive = isBuild;
+
+      if(currentState == GameMode.View)
+      {
+         _virtualCam.Follow = transform;
+         _virtualCam.LookAt = transform;
+         _camTransposer.m_FollowOffset = _viewCamOffset;
+         _camTransposer.m_XDamping = 0;
+         _camTransposer.m_ZDamping = 0;
+         uiManager.OnModeChange(GameMode.View);
+      }
+      
+      if(previousState == GameMode.Upgrade)
+      {
+         _selectedUpgradeAgent.HideDebug();
+         _selectedUpgradeAgent = null;
+      }
+
+      if(currentState == GameMode.Upgrade)
+      {
+         _selectedUpgradeAgent = Shot3DUtil.GetAgentOnCurrentCursor() as IBuildingAgent;
+         _virtualCam.Follow = (_selectedUpgradeAgent as MonoBehaviour).transform;
+         _virtualCam.LookAt = (_selectedUpgradeAgent as MonoBehaviour).transform;
+         _camTransposer.m_FollowOffset = _UpgradeCamOffset;
+         _camTransposer.m_XDamping = onUpgradeDamping.x;
+         _camTransposer.m_ZDamping = onUpgradeDamping.y;
+         Shot3DUtil.SetCursorShotVisual(ToolBarEnum.Upgrade);
+
+
+         _selectedUpgradeAgent.ShowDebug();
+         uiManager.OnModeChange(GameMode.Upgrade);
+      }
    }
 }

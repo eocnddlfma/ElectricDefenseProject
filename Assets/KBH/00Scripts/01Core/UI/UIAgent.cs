@@ -23,5 +23,22 @@ public class UIAgent : MonoBehaviour
       }
    }
 
+   private bool isSelectable;
+   public bool IsSelectable
+   {
+      get => isSelectable;
+      set
+      {
+         if (graphic)
+            graphic.raycastTarget = value;
+
+         if (canvasGroup)
+         {
+            canvasGroup.blocksRaycasts = value;
+            canvasGroup.interactable = value;
+         }
+      }
+   }
+
 
 }

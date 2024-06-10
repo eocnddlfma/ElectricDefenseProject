@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentType: 4
-  agentStatus: {fileID: 0}
+  status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2b438f18aa9614fac94df73593e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  _agent: {fileID: 0}
 --- !u!1 &3867379230517431448
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.003
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.z

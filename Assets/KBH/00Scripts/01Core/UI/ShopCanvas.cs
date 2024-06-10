@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldStorage : Building<GoldStorageStateEnum>
+public class ShopCanvas : UIAgent
 {
-   float power = 0;
+
 }

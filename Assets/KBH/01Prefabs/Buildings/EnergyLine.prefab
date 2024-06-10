@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentType: 6
-  agentStatus: {fileID: 0}
+  status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
@@ -168,6 +168,41 @@ MonoBehaviour:
       Reference: {fileID: 0}
       isJustEnter: 0
   _meshRenderer: {fileID: 0}
+  hasPowerSource: 0
+  power: 0
+  resistance: 1.5
+  isCicleActive: 1
+  circleRadius: 0.5
+  _colorByPowerGradient:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0.99655426, g: 1, b: 0, a: 1}
+    key2: {r: 0.99689883, g: 1, b: 0.1, a: 0}
+    key3: {r: 1, g: 1, b: 1, a: 0}
+    key4: {r: 1, g: 0.08518505, b: 0.08518505, a: 0}
+    key5: {r: 1, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 7839
+    ctime2: 21845
+    ctime3: 30840
+    ctime4: 43947
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
 --- !u!114 &1358540933967763708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2b438f18aa9614fac94df73593e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  _agent: {fileID: 0}
 --- !u!1 &7856950825534676797
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.437
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.z

@@ -47,6 +47,8 @@ public enum ToolBarEnum
    Add,
    Remove,
    Move,
+   Upgrade,
+   Shop
 }
 
 

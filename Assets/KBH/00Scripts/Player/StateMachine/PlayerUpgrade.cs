@@ -6,6 +6,11 @@ public class PlayerUpgrade : PlayerState
 {
    public override bool CanChangeToOther(ref GameMode state)
    {
-      return base.CanChangeToOther(ref state);
+      if(Input.GetKeyDown(KeyCode.Escape))
+      {
+         state = GameMode.View;
+         return true;
+      }
+      return false;
    }
 }

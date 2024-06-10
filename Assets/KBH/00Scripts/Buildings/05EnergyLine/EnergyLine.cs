@@ -6,15 +6,21 @@ using UnityEngine;
 
 public class EnergyLine : Building<EnergyLineStateEnum>
 {
+   public bool hasPowerSource = false;
+   public float power = 0;
+
    private readonly int _circleRadiusHash = Shader.PropertyToID("_CircleRadius");
    private readonly int _isRightHash = Shader.PropertyToID("_IsRight");
    private readonly int _isleftHash = Shader.PropertyToID("_IsLeft");
    private readonly int _isUpHash = Shader.PropertyToID("_IsUp");
    private readonly int _isDownHash = Shader.PropertyToID("_IsDown");
 
-   private bool isCicleActive = true;
-   private float circleRadius = 0.5f;
+   [SerializeField] private float resistance = 1.5f;
+   [SerializeField] private bool isCicleActive = true;
+   [SerializeField] private float circleRadius = 0.5f;
    private Tween _circleScalingTween = null;
+
+   [SerializeField] private Gradient _colorByPowerGradient;
 
    public override void WakeUpAction()
    {
@@ -24,6 +30,11 @@ public class EnergyLine : Building<EnergyLineStateEnum>
 
    public void UpdateLine()
    {
+      Agent right = MapUtil.Instance[cellPosition + Vector2Int.right];
+      Agent left = MapUtil.Instance[cellPosition + Vector2Int.left];
+      Agent up = MapUtil.Instance[cellPosition + Vector2Int.up];
+      Agent down = MapUtil.Instance[cellPosition + Vector2Int.down];
+
       bool isRight = MapUtil.Instance[cellPosition + Vector2Int.right] is not null;
       bool isLeft = MapUtil.Instance[cellPosition + Vector2Int.left] is not null;
       bool isUp = MapUtil.Instance[cellPosition + Vector2Int.up] is not null;
@@ -61,6 +72,22 @@ public class EnergyLine : Building<EnergyLineStateEnum>
 
          isCicleActive = true;
       }
+
+      if(count != 0)
+      {
+         PowerSourceCheck(right, left, up, down);
+
+         if(!hasPowerSource)
+            PowerCalculate(right, left, up, down);
+      }
+      else
+      {
+         hasPowerSource = false;
+      }
+
+      _material.SetVector(
+         _baseColorHash, _colorByPowerGradient.Evaluate(Mathf.InverseLerp(0, 1, 
+         Mathf.Clamp01(power))));
       
    }
 
@@ -73,4 +100,40 @@ public class EnergyLine : Building<EnergyLineStateEnum>
       }
       return cnt; 
    }
+
+   private void PowerSourceCheck(params Agent[] agentList)
+   {
+      int powerSourceCnt = 0;
+
+      power = 0;
+      for (int i = 0; i < agentList.Length; ++i)
+      {
+         if (!agentList[i]) continue;
+
+         if (agentList[i].agentType == AgentType.GoldMinor)
+         {
+            power += 1f;
+            hasPowerSource = true;
+            ++powerSourceCnt;
+         }
+         else if(powerSourceCnt == 0)
+         {
+            hasPowerSource = false;
+         }
+      }
+   }
+
+   private void PowerCalculate(params Agent[] agentList)
+   {
+      power = 0;
+      for(int i = 0; i<agentList.Length; ++i)
+      {
+         if(agentList[i] as EnergyLine)
+         {
+            EnergyLine line = agentList[i] as EnergyLine;
+            power += line.power / resistance;
+         }
+      }
+   }
+
 }

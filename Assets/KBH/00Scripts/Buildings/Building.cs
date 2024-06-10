@@ -34,6 +34,7 @@ public class Building<T> : Agent, IBuildingAgent
 
       health = transform.Find("HealthBar").GetComponent<Health>();
       damageCaster = GetComponent<DamageCaster>();
+      damageCaster.Initialize(this);
       _material = _meshRenderer.material;
       base.Awake();
    }
@@ -63,7 +64,23 @@ public class Building<T> : Agent, IBuildingAgent
          {
             BuildingUtil.Push(this);
          });
+
+      foreach (Vector2Int direction in MapHelper.FourDirection)
+      {
+         Agent targetAgent = MapUtil.Instance[cellPosition + direction];
+         if (targetAgent is EnergyLine)
+         {
+            (targetAgent as EnergyLine).UpdateLine();
+         }
+         if (targetAgent is HighWall)
+         {
+            (targetAgent as HighWall).UpdateWall();
+         }
+      }
    }
 
    public virtual void Upgrade(){}
+   public virtual void ShowDebug(){}
+   public virtual void HideDebug(){}
+
 }

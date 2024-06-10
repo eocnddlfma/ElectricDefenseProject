@@ -12,26 +12,27 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
 
     private Dictionary<EnemyType, GameObject> _dictionary;
     
-    void Start()
+    void Awake()
     {
+        AbleGeneratePos = new List<Transform>();
+        
         _dictionary = new Dictionary<EnemyType, GameObject>();
-        _enemyTableSO.list.ForEach((a) =>
-        {
-            _dictionary.Add(a.type, a.prefab);
-        });
+        _enemyTableSO.list.ForEach((a) => _dictionary.Add(a.type, a.prefab));
         GeneratePos = transform.GetComponentsInChildren<Transform>().ToList();
     }
 
     private RaycastHit[] _raycastHits;
     public void CheckAblePos()
     {
+        print("asdf");
         AbleGeneratePos.Clear();
+        print("asdfds");
         foreach (var a in GeneratePos)
         {
             var hits = Physics.SphereCastNonAlloc(
                 transform.position, buildingCheckDistance,//보이는 곳에 자원 빌딩이 있는가?
                 Vector3.up, _raycastHits, 0f, 7);//layer7 == resourcebuilding
-
+            print(hits);
             if (hits == 0)
             {
                 AbleGeneratePos.Add(a);
@@ -41,7 +42,7 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
 
     public Vector3 GetRandomGeneratePos()
     {
-        int a = Random.Range(0, AbleGeneratePos.Count);
+        int a = Random.Range(0, AbleGeneratePos.Count-1);
         Vector3 pos = AbleGeneratePos[a].position;
         pos += new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5f, 5f));
         Debug.Log("randomPos :" + pos);

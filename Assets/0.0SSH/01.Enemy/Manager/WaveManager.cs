@@ -27,7 +27,7 @@ public class WaveManager : MonoSingleton<WaveManager>
     private void Start()
     {
         _wave = 0;
-        //uiManager.viewCanvas.WaveGaugePercent = 0;
+        uiManager.viewCanvas.WaveGaugePercent = 0;
 
         StartCoroutine(UpdateWave());
     }

@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealthBar: {fileID: 7488483956402863175}
-  HealthBarRotation: {x: 60, y: 0, z: 0}
+  HealthBarRotation: {x: 90, y: 0, z: 0}
 --- !u!114 &6741426318123990250
 MonoBehaviour:
   m_ObjectHideFlags: 0

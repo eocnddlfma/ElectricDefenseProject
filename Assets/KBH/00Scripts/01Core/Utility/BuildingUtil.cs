@@ -41,7 +41,7 @@ public class BuildingUtil : MonoSingleton<BuildingUtil>
 
          for(int j = 0; j< _poolDataList[i].marginCount; ++j)
          {
-            Agent agent
+               Agent agent
                = Instantiate(_poolDataList[i].buildingPrefab, targetPoolTypeParent);
             agent.gameObject.SetActive(false);
             _agentPoolDictionary[poolType].Push(agent);

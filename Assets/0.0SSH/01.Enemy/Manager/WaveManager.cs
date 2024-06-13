@@ -36,17 +36,18 @@ public class WaveManager : MonoSingleton<WaveManager>
     {
         while (_wave < 31)
         {
-            _wave++;
-            EnemyPerWave[_wave]._enemyWaveInfos.ForEach( a=> EnemyGeneratorManager.Instance.GenerateEnemy(a.num, a.enemy));
-            uiManager.viewCanvas.WaveText = _wave.ToString();
             while (CurrentWaveTime < MaxWaveTime)
             {
                 CurrentWaveTime += Time.deltaTime;
                 uiManager.viewCanvas.WaveGaugePercent = CurrentWaveTime / MaxWaveTime;
                 yield return null;
             }
-
+            _wave++;
+            EnemyPerWave[_wave]._enemyWaveInfos.ForEach( a=> EnemyGeneratorManager.Instance.GenerateEnemy(a.num, a.enemy));
+            uiManager.viewCanvas.WaveText = _wave.ToString();
+            
             CurrentWaveTime = 0;
+            MaxWaveTime = _wave + 10;
         }
     }
 }

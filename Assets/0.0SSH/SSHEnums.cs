@@ -14,10 +14,9 @@ public enum EnemyTargetPriorityEnum
 
 public enum EnemyType
 {
-    Goblin,
-    EliteGoblin,
-    Skeleton,
-    EliteSkeleton,
+    Ork,
+    EliteOkr,
     Archer,
     EliteArcher,
+    Goblin,
 }

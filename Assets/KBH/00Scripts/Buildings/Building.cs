@@ -56,6 +56,7 @@ public class Building<T> : Agent, IBuildingAgent
 
    public virtual void Die()
    {
+      Destroy(collider);
       float dissolveTime = 2f;
       MapUtil.RemoveAgent(this);
       _material.DOFloat(1, _dissolvePercentHash, dissolveTime);

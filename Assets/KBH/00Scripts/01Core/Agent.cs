@@ -9,6 +9,7 @@ public class Agent : MonoBehaviour
    public AgentStatus status;
    public Health health;
    public DamageCaster damageCaster;
+   public CapsuleCollider collider;
    [field: SerializeField] public Vector2Int cellPosition { get; set; }
    public virtual void WakeUpAction()
    {
@@ -17,8 +18,8 @@ public class Agent : MonoBehaviour
 
    public virtual void Awake()
    {
-      Debug.Log("awa");
       Debug.Log(this);
+      collider = GetComponent<CapsuleCollider>();
       health.Initialize(this);
    }
 

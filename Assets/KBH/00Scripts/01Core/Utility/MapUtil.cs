@@ -185,12 +185,7 @@ public class MapUtil : MonoSingleton<MapUtil>
       goldMesh.CombineMeshes(goldCombineList.ToArray());
       _goldMeshCombiner.mesh = goldMesh;
       _goldMeshCollider.sharedMesh = goldMesh;
-
-      
    }
-
-   private NavMeshSurface surface;
-
    public static Vector2Int WorldToCell(Vector3 position)
    {
       Vector2Int cellPos

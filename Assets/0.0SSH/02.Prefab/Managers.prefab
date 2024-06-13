@@ -394,6 +394,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4554767620845308850}
+  - {fileID: 6402960408980898887}
+  - {fileID: 6913246460404481730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &840136137025682649
@@ -422,11 +424,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CommandBuilding: {fileID: 0}
-  _navMeshSurface: {fileID: 0}
-  _navMeshData: {fileID: 23800000, guid: f95497c6b47b12841a93424440df2ce8, type: 2}
-  OnMapChange:
-    m_PersistentCalls:
-      m_Calls: []
+  _navMeshSurface:
+  - {fileID: 0}
+  - {fileID: 0}
+  _navMeshData:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &433276224033156803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,17 +458,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   CurrentWaveTime: 0
-  MaxWaveTime: 0
+  MaxWaveTime: 3
   _wave: 0
   EnemyPerWave:
+  - _enemyWaveInfos:
+    - enemy: 0
+      num: 1
   - _enemyWaveInfos:
     - enemy: 0
       num: 3
   - _enemyWaveInfos:
     - enemy: 0
       num: 5
+    - enemy: 2
+      num: 1
+  - _enemyWaveInfos:
+    - enemy: 0
+      num: 7
+    - enemy: 2
+      num: 1
+  - _enemyWaveInfos:
+    - enemy: 0
+      num: 6
+    - enemy: 2
+      num: 2
+  - _enemyWaveInfos:
+    - enemy: 0
+      num: 10
+    - enemy: 2
+      num: 1
     - enemy: 4
       num: 1
+  - _enemyWaveInfos:
+    - enemy: 0
+      num: 5
+    - enemy: 2
+      num: 5
 --- !u!114 &7171746267303422708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1288ef1458d8e4f4a9cc9f2e9c7894e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GeneratePos: []
+  AbleGeneratePos: []
   buildingCheckDistance: 5
   _enemyTableSO: {fileID: 11400000, guid: 65a7bc36ecf62764eb55afd0ada4cae5, type: 2}
 --- !u!1 &6320126094205554141
@@ -510,6 +540,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4554767620845308850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6381071380702345886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6402960408980898887}
+  m_Layer: 0
+  m_Name: NavMesh1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6402960408980898887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6381071380702345886}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3119675587032740736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6471006199172924669
 GameObject:
@@ -665,6 +726,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4554767620845308850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8710183932495685611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6913246460404481730}
+  m_Layer: 0
+  m_Name: NavMesh2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6913246460404481730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8710183932495685611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3119675587032740736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8930346443013912949
 GameObject:

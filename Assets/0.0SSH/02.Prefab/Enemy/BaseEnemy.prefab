@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1758779522793926438}
   - component: {fileID: 6508642958805676324}
   - component: {fileID: 4219376675548768111}
+  - component: {fileID: 6087180979050600558}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1085961731073128787}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.24, y: 2.1607738, z: -4.59}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53,6 +54,7 @@ MonoBehaviour:
   status: {fileID: 6508642958805676324}
   health: {fileID: 3127363143875831726}
   damageCaster: {fileID: 4219376675548768111}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
   _navMeshAgent: {fileID: 1758779522793926438}
   _stateMachine:
@@ -61,7 +63,10 @@ MonoBehaviour:
     isJustEnter: 0
   _enemyAttack: {fileID: 0}
   _damageCaster: {fileID: 0}
+  TargetFinder: {fileID: 0}
   animatiorComponent: {fileID: 0}
+  enemyStatus: {fileID: 0}
+  target: {fileID: 0}
 --- !u!195 &1758779522793926438
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -71,7 +76,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1085961731073128787}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -115,6 +120,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 0}
+--- !u!114 &6087180979050600558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085961731073128787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929386b8ee6da5246a25819c76da3e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceBuildingLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  wallBuildingLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackBuildingLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &5853893835482380877
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +265,7 @@ MonoBehaviour:
   _status: {fileID: 6508642958805676324}
   _animator: {fileID: 0}
   _baseEnemyAttack: {fileID: 0}
-  target: {fileID: 2143373037451627397}
+  refTarget: {fileID: 0}
 --- !u!1001 &8568375030602390340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.z

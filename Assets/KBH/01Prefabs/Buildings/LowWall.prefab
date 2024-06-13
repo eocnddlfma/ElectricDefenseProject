@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 48398662388604747}
   - component: {fileID: 7652052341480489352}
   - component: {fileID: 3405368542726419073}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 4489972419430576399}
   - component: {fileID: 5889830566353735396}
   - component: {fileID: 359441942377499283}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 271066740884022583}
   - component: {fileID: -3604205152144737972}
   - component: {fileID: -661852080402119658}
+  - component: {fileID: 6735752067356589478}
   m_Layer: 8
   m_Name: LowWall
   m_TagString: Untagged
@@ -230,6 +231,7 @@ MonoBehaviour:
   status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
   _buildingInfoSO: {fileID: 11400000, guid: 31c809731c8d5fc429a8271742d5d906, type: 2}
   mainStateMachine:
@@ -266,10 +268,33 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!136 &6735752067356589478
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903850321005158465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5916027185397368730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -320,15 +345,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4962390675278072464, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792594388741362343, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6768161126614236019, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7959799769627597539, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Name
@@ -336,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959799769627597539, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -25,14 +25,12 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
     private RaycastHit[] _raycastHits;
     public void CheckAblePos()
     {
-        print("asdf");
         AbleGeneratePos.Clear();
-        print("asdfds");
         foreach (var a in GeneratePos)
         {
             var hits = Physics.SphereCastNonAlloc(
                 transform.position, buildingCheckDistance,//보이는 곳에 자원 빌딩이 있는가?
-                Vector3.up, _raycastHits, 0f, 7);//layer7 == resourcebuilding
+                Vector3.up, _raycastHits, 0f, 1<<7);//layer7 == resourcebuilding
             print(hits);
             if (hits == 0)
             {
@@ -46,8 +44,8 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
         int a = Random.Range(0, AbleGeneratePos.Count-1);
         Vector3 pos = AbleGeneratePos[a].position;
         pos += new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5f, 5f));
-        Debug.Log("randomPos :" + pos);
-        pos = Vector3.Lerp(Vector3.zero, pos, WaveManager.Instance._wave / 14f);
+        //Debug.Log("randomPos :" + pos);
+        //pos = Vector3.Lerp(Vector3.zero, pos, WaveManager.Instance._wave / 14f);
         return pos;
     }
 

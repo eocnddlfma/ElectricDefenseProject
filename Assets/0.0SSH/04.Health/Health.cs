@@ -23,12 +23,11 @@ public class Health : MonoBehaviour
             Debug.Log($"current hp {hp}");
             _healthBar.UpdateHealthbar(hp/(float)maxHp);
         } 
-    }
+    }   
     
     public void Initialize(Agent agent)
     {
         _agent = agent;
-        Debug.Log(_agent.status.name);
         maxHp = agent.status.maxHp;
         Hp = maxHp;
     }

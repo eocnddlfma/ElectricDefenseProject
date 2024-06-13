@@ -185,23 +185,7 @@ public class MapUtil : MonoSingleton<MapUtil>
       goldMesh.CombineMeshes(goldCombineList.ToArray());
       _goldMeshCombiner.mesh = goldMesh;
       _goldMeshCollider.sharedMesh = goldMesh;
-
-      surface = transform.Find("Map").GetComponent<NavMeshSurface>();
-      
    }
-
-   private NavMeshSurface surface;
-   private float timeStamp = 0;
-   private float delayTime = 1f;
-   private void Update()
-   {
-      if (timeStamp + delayTime < Time.time)
-      {
-         timeStamp = Time.time;
-         surface.BuildNavMesh();
-      }
-   }
-
    public static Vector2Int WorldToCell(Vector3 position)
    {
       Vector2Int cellPos

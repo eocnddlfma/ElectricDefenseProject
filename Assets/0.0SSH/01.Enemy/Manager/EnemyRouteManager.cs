@@ -10,24 +10,20 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
 {
     //게임 맵 중앙에 있는 커멘드 빌딩
     [SerializeField] public Agent CommandBuilding;
-    [SerializeField] private NavMeshSurface _navMeshSurface;
-    [SerializeField] private NavMeshData _navMeshData;
-    public UnityEvent OnMapChange; 
+    [SerializeField] private NavMeshSurface[] _navMeshSurface;
+    [SerializeField] private NavMeshData[] _navMeshData;
     
     void Start()
     {
         //CommandBuilding = GameObject.Find("CommandBuilding");
-        MapChanged();
+        NavMeshUpdate();
         StartCoroutine(UpdateMap());
     }
 
     public IEnumerator UpdateMap()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(2f);
-            MapChanged();
-        }
+        yield return new WaitForSeconds(2f);
+        NavMeshUpdate();
     }
     
     public bool HasRouteToBuilding(NavMeshAgent navMeshAgent)
@@ -39,10 +35,10 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
         return false;
     }
 
-    public void MapChanged()
+    public void NavMeshUpdate()
     {
-        _navMeshSurface.UpdateNavMesh(_navMeshData);
-        OnMapChange?.Invoke();
+        _navMeshSurface[0].UpdateNavMesh(_navMeshData[0]);
+        _navMeshSurface[1].UpdateNavMesh(_navMeshData[1]);
     }
 
     

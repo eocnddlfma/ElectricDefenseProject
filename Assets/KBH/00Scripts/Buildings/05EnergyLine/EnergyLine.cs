@@ -28,8 +28,9 @@ public class EnergyLine : Building<EnergyLineStateEnum>
       circleRadius = _material.GetFloat(_circleRadiusHash);
    }
 
-   public void UpdateLine()
+   public override void UpdateBuilding()
    {
+      base.UpdateBuilding();
       Agent right = MapUtil.Instance[cellPosition + Vector2Int.right];
       Agent left = MapUtil.Instance[cellPosition + Vector2Int.left];
       Agent up = MapUtil.Instance[cellPosition + Vector2Int.up];

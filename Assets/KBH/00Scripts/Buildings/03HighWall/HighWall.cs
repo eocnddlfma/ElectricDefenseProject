@@ -19,8 +19,9 @@ public class HighWall : Building<HighWallStateEnum>
       base.WakeUpAction();
    }
 
-   public void UpdateWall()
+   public override void UpdateBuilding()
    {
+      base.UpdateBuilding();
       bool isRight = MapUtil.Instance[cellPosition + Vector2Int.right] is not null;
       bool isLeft = MapUtil.Instance[cellPosition + Vector2Int.left] is not null;
       bool isUp = MapUtil.Instance[cellPosition + Vector2Int.up] is not null;

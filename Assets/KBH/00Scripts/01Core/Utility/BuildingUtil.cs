@@ -77,6 +77,30 @@ public class BuildingUtil : MonoSingleton<BuildingUtil>
       return result;
    }
 
+   public static Agent Pop(AgentType popTypeEnum, Vector2Int registePosition)
+   {
+      Stack<Agent> targetStack
+         = Instance._agentPoolDictionary[popTypeEnum];
+
+
+      if (targetStack.Count <= 0)
+      {
+         BuildingPoolData poolData = Instance._agentPoolDataDictionary[popTypeEnum];
+         for (int i = 0; i < poolData.marginCount; ++i)
+         {
+            Agent agent
+               = Instantiate(poolData.buildingPrefab, poolData.parent);
+            agent.gameObject.SetActive(false);
+            targetStack.Push(agent);
+         }
+      }
+
+      Agent result = targetStack.Pop();
+      result.cellPosition = registePosition;
+
+      return result;
+   }
+
    public static void Push(Agent agent)
    {
 

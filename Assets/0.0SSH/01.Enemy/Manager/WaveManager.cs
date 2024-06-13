@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WaveManager : MonoSingleton<WaveManager>
 {
-    public UIManager uiManager;
+    public UIUtil uiManager;
     public float CurrentWaveTime;
     public float MaxWaveTime;
     public int _wave;

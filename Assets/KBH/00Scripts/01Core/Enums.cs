@@ -1,4 +1,11 @@
 
+public enum GameState
+{
+   Sleep,
+   Run,
+   Wait
+}
+
 public enum AgentType
 {
    None,

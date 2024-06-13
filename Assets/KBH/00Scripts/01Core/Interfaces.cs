@@ -7,4 +7,5 @@ public interface IBuildingAgent
    void Upgrade();
    void ShowDebug();
    void HideDebug();
+   void UpdateBuilding();
 }

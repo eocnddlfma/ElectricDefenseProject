@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class UIManager : MonoBehaviour
+public class UIUtil : MonoSingleton<UIUtil>
 {
    private GameMode _previousMode;
 
    public CoreCanvas coreCanvas;
    public BuildCanvas buildCanvas;
    public ViewCanvas viewCanvas;
-   public UpgradeCanvas upgradeCanvas;
    public ShopCanvas shopCanvas;
 
    private void Awake()
@@ -19,7 +18,6 @@ public class UIManager : MonoBehaviour
       coreCanvas = transform.Find("CoreCanvas").GetComponent<CoreCanvas>();
       buildCanvas = transform.Find("BuildCanvas").GetComponent<BuildCanvas>();
       viewCanvas = transform.Find("ViewCanvas").GetComponent<ViewCanvas>();
-      upgradeCanvas = transform.Find("UpgradeCanvas").GetComponent<UpgradeCanvas>();
       shopCanvas = transform.Find("ShopCanvas").GetComponent<ShopCanvas>();
 
       coreCanvas.OnModeChangeEvent += OnModeChange;
@@ -34,22 +32,18 @@ public class UIManager : MonoBehaviour
          case GameMode.View:
             DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 1, 0.2f);
-            DOTween.To(() => upgradeCanvas.Alpha, x => upgradeCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => shopCanvas.Alpha, x => shopCanvas.Alpha = x, 0, 0.2f);
             viewCanvas.IsSelectable = true;
             buildCanvas.IsSelectable = false;
-            upgradeCanvas.IsSelectable = false;
             shopCanvas.IsSelectable = false;
             break;
 
          case GameMode.Build:
             DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 1, 0.2f);
             DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 0, 0.2f);
-            DOTween.To(() => upgradeCanvas.Alpha, x => upgradeCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => shopCanvas.Alpha, x => shopCanvas.Alpha = x, 0, 0.2f);
             viewCanvas.IsSelectable = false;
             buildCanvas.IsSelectable = true;
-            upgradeCanvas.IsSelectable = false;
             shopCanvas.IsSelectable = false;
 
             break;
@@ -57,22 +51,18 @@ public class UIManager : MonoBehaviour
          case GameMode.Upgrade:
             DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 0, 0.2f);
-            DOTween.To(() => upgradeCanvas.Alpha, x => upgradeCanvas.Alpha = x, 1, 0.2f);
             DOTween.To(() => shopCanvas.Alpha, x => shopCanvas.Alpha = x, 0, 0.2f);
             viewCanvas.IsSelectable = false;
             buildCanvas.IsSelectable = false;
-            upgradeCanvas.IsSelectable = true;
             shopCanvas.IsSelectable = false;
             break;
 
          case GameMode.Shop:
             DOTween.To(() => buildCanvas.Alpha, x => buildCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => viewCanvas.Alpha, x => viewCanvas.Alpha = x, 0, 0.2f);
-            DOTween.To(() => upgradeCanvas.Alpha, x => upgradeCanvas.Alpha = x, 0, 0.2f);
             DOTween.To(() => shopCanvas.Alpha, x => shopCanvas.Alpha = x, 1, 0.2f);
             viewCanvas.IsSelectable = false;
             buildCanvas.IsSelectable = false;
-            upgradeCanvas.IsSelectable = false;
             shopCanvas.IsSelectable = true;
             break;
 

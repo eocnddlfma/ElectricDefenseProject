@@ -29,7 +29,7 @@ public class MapUtil : MonoSingleton<MapUtil>
          if(x < _mapArea.x && x >= 0
             && y < _mapArea.y && y >= 0)
          {
-            if(_agentRegisteDictionary
+            if(agentRegisteDictionary
                .TryGetValue(new Vector2Int(x, y), out Agent result))
             {
                return result.agentType;
@@ -53,7 +53,7 @@ public class MapUtil : MonoSingleton<MapUtil>
          if (position.x < _mapArea.x && position.x >= 0
             && position.y < _mapArea.y && position.y >= 0)
          {
-            if (_agentRegisteDictionary
+            if (agentRegisteDictionary
                .TryGetValue(position, out Agent result))
             {
                return result;
@@ -83,7 +83,7 @@ public class MapUtil : MonoSingleton<MapUtil>
    private readonly int _UnitHash = Shader.PropertyToID("_Unit");
    private readonly int _StrokeHash = Shader.PropertyToID("_Stroke");
 
-   private Dictionary<Vector2Int, Agent> _agentRegisteDictionary
+   public Dictionary<Vector2Int, Agent> agentRegisteDictionary
       = new Dictionary<Vector2Int, Agent>();
 
 
@@ -186,21 +186,10 @@ public class MapUtil : MonoSingleton<MapUtil>
       _goldMeshCombiner.mesh = goldMesh;
       _goldMeshCollider.sharedMesh = goldMesh;
 
-      surface = transform.Find("Map").GetComponent<NavMeshSurface>();
       
    }
 
    private NavMeshSurface surface;
-   private float timeStamp = 0;
-   private float delayTime = 1f;
-   private void Update()
-   {
-      if (timeStamp + delayTime < Time.time)
-      {
-         timeStamp = Time.time;
-         surface.BuildNavMesh();
-      }
-   }
 
    public static Vector2Int WorldToCell(Vector3 position)
    {
@@ -244,17 +233,17 @@ public class MapUtil : MonoSingleton<MapUtil>
 
    public static void RegisteAgent(Agent agent)
    {
-      if(!Instance._agentRegisteDictionary.ContainsKey(agent.cellPosition))
+      if(!Instance.agentRegisteDictionary.ContainsKey(agent.cellPosition))
       {
-         Instance._agentRegisteDictionary[agent.cellPosition] = agent;
+         Instance.agentRegisteDictionary[agent.cellPosition] = agent;
       }
    }
 
    public static void RemoveAgent(Agent agent)
    {
-      if(Instance._agentRegisteDictionary.ContainsKey(agent.cellPosition))
+      if(Instance.agentRegisteDictionary.ContainsKey(agent.cellPosition))
       {
-         Instance._agentRegisteDictionary.Remove(agent.cellPosition);
+         Instance.agentRegisteDictionary.Remove(agent.cellPosition);
       }
    }
 }

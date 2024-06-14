@@ -111,6 +111,6 @@ public class EnemyTargetFinder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, enemy.enemyStatus.attackRadius/2);
+//        Gizmos.DrawWireSphere(transform.position, enemy.enemyStatus.attackRadius/2);
     }
 }

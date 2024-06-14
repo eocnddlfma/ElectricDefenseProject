@@ -14,8 +14,8 @@ TagManager:
   - 
   - ResourceBuilding
   - WallBuilding
-  - Bottom
-  - BottomElite
+  - Surface
+  - EliteSurface
   - AttackBuilding
   - 
   - 

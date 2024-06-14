@@ -32,11 +32,11 @@ public class EnemyMove : EnemyState
         {
             bool isset = _enemyReference._navMeshAgent.SetDestination(new Vector3(0, 0, 0));
         }
+
         if(EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
         {
             Debug.Log("야임마 길 없어!!");
         }
-        
         
         return false;
     }

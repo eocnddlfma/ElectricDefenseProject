@@ -5,10 +5,18 @@ using UnityEngine;
 public class ArrowTowerAttack : State<ArrowTowerStateEnum>
 {
    public float attackUnwindDetectRadius = 2f;
+   public ArrowTowerStateReference Reference
+      => _reference as ArrowTowerStateReference;
 
    public override bool CanChangeToOther(ref ArrowTowerStateEnum state)
    {
       List<Enemy> enemyList = EnemyManager.Instance.enemyList;
+
+      float minDistance = float.MaxValue;
+      Enemy closestEnemy = null;
+
+      bool isAllEnemyOutOfRadius = true;
+
       for (int i = 0; i<enemyList.Count; ++i)
       {
          if (enemyList[i])
@@ -16,18 +24,27 @@ public class ArrowTowerAttack : State<ArrowTowerStateEnum>
             float betweenDistance
                = Vector3.Distance(enemyList[i].transform.position, transform.position);
 
-            if(betweenDistance < attackUnwindDetectRadius)
+            if(betweenDistance < Reference.baseDetectDistance * attackUnwindDetectRadius)
             {
-               break;
+               isAllEnemyOutOfRadius = false;
+
+               if (betweenDistance < minDistance)
+               {
+                  betweenDistance = minDistance;
+                  closestEnemy = enemyList[i];
+               }
             }
-            else if(i == enemyList.Count - 1)
+            else if(i == enemyList.Count - 1 && isAllEnemyOutOfRadius)
             {
                state = ArrowTowerStateEnum.Stay;
                return true;
             }
+
+            
          }
       }
 
+      Reference.closestEnemy = closestEnemy;
       return false;
    }
 

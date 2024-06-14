@@ -9,6 +9,11 @@ public class BuildingStateMachine<T> : StateMachine<BuildingBaseStateEnum>
 {
    [SerializeField] public StateMachine<T> stayStateSubMachine;
 
+   public override void Intialize(Agent owner, BuildingBaseStateEnum defaultState)
+   {
+      base.Intialize(owner, defaultState);
+      stayStateSubMachine.Intialize(owner, default);
+   }
 
 
    public override void Update()

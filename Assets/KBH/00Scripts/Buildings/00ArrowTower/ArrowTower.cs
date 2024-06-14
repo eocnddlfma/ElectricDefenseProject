@@ -49,6 +49,8 @@ public class ArrowTower : Building<ArrowTowerStateEnum>
 
    bool isAlreadyUpgraded = false;
 
+   [SerializeField] private ArrowTowerStateReference _stayStateReference;
+   [SerializeField] private GameObject _bulbAgent;
 
    public override void Awake()
    {
@@ -58,6 +60,89 @@ public class ArrowTower : Building<ArrowTowerStateEnum>
 
       _firstUpgradeBtn.onClick.AddListener(FirstBlankUpgradeEvent);
       _secondUpgradeBtn.onClick.AddListener(SecondBlankUpgradeEvent);
+
+       _stayStateReference = mainStateMachine.stayStateSubMachine
+            .Reference as ArrowTowerStateReference;
+   }
+
+   public override void Update()
+   {
+      base.Update();
+      switch (mainStateMachine.stayStateSubMachine.State)
+      {
+         case ArrowTowerStateEnum.Stay:
+            
+            break;
+
+         case ArrowTowerStateEnum.Attack:
+            AttackAction(currentType);
+            break;
+      }
+   }
+
+
+   private void AttackAction(ArrowTowerType currentType)
+   {
+      StatusInitalize(currentType);
+      DoAttack();
+   }
+
+   float currentTimeStamp;
+   private void DoAttack()
+   {
+      if ((currentTimeStamp + _stayStateReference.coolTime)
+         < Time.time)
+      {
+         if (!_stayStateReference.closestEnemy) return;
+
+         GameObject obj = Instantiate(_bulbAgent, transform.position, Quaternion.identity);
+         obj.transform.DOMove
+            (_stayStateReference.closestEnemy.transform.position, 
+            1.5f);
+
+         Destroy(obj, 1.5f);
+         _stayStateReference.closestEnemy.health.DoDamage(1, 1.5f);
+         currentTimeStamp = Time.time;
+      }
+
+
+   }
+
+   private void StatusInitalize(ArrowTowerType currentType)
+   {
+      if (currentType == 0)
+      {
+         _stayStateReference.hasBoomSplash = false;
+         _stayStateReference.baseDetectDistance = 3;
+         _stayStateReference.arrowPerSecond = 2;
+      }
+
+      if ((currentType & ArrowTowerType.Arrow_Num_Many) > 0)
+      {
+         _stayStateReference.arrowPerSecond = 10;
+      }
+
+      if ((currentType & ArrowTowerType.Boom_Splash) > 0)
+      {
+         _stayStateReference.hasBoomSplash = true;
+         _stayStateReference.boomSplashRange = 3f;
+      }
+
+      if ((currentType & ArrowTowerType.Slow_Energy) > 0)
+      {
+         // 아직 구현 중
+      }
+
+      if ((currentType & ArrowTowerType.Sniping) > 0)
+      {
+         _stayStateReference.baseDetectDistance = 10;
+         // 아직 구현 중
+      }
+
+      if ((currentType & ArrowTowerType.Stun_Effect) > 0)
+      {
+         // 아직 구현 중
+      }
    }
 
    private void SecondBlankUpgradeEvent()
@@ -84,6 +169,7 @@ public class ArrowTower : Building<ArrowTowerStateEnum>
       {
          currentTree = currentTree.nextTypes[0];
       }
+      currentType |= currentTree.baseType;
       ShowDebug();
    }
 

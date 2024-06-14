@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ArrowTowerStay : State<ArrowTowerStateEnum>
 {
-
    public float attackDetectRadius = 2f;
+   public ArrowTowerStateReference Reference
+   => _reference as ArrowTowerStateReference;
 
    public override bool CanChangeToOther(ref ArrowTowerStateEnum state)
    {
@@ -13,15 +14,14 @@ public class ArrowTowerStay : State<ArrowTowerStateEnum>
 
       for (int i = 0; i < enemyList.Count; ++i)
       {
-         if (enemyList[i])
+         if (enemyList[i] is not null)
          {
             float betweenDistance
                  = Vector3.Distance(enemyList[i].transform.position, transform.position);
 
-            if (betweenDistance < attackDetectRadius)
+            if (betweenDistance < Reference.baseDetectDistance * attackDetectRadius)
             {
                state = ArrowTowerStateEnum.Attack;
-               Debug.Log("¾ö");
                return true;
             }
          }

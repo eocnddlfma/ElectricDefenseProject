@@ -1688,6 +1688,7 @@ MonoBehaviour:
   status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
 --- !u!1 &642196819
 GameObject:
@@ -1829,8 +1830,6 @@ GameObject:
   - component: {fileID: 689377073}
   - component: {fileID: 689377072}
   - component: {fileID: 689377071}
-  - component: {fileID: 689377075}
-  - component: {fileID: 689377076}
   m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
@@ -1917,75 +1916,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689377070}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 787481204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &689377075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689377070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: a7a918535e9aa614b8b00f717992842f, type: 2}
-  m_BuildHeightMesh: 0
---- !u!114 &689377076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689377070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: -334000983
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: bb41ca883a07b104d96c5b02d74660ef, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &698285727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787481204}
+  - component: {fileID: 787481205}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -2258,8 +2196,40 @@ Transform:
   m_Children:
   - {fileID: 1625543032}
   - {fileID: 1130579966}
+  - {fileID: 689377074}
   m_Father: {fileID: 1843183404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &787481205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787481203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 1bec0bcf8b1c1d64db74c0a2a90cfc37, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &803513712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,7 +3344,7 @@ GameObject:
   - component: {fileID: 1130579969}
   - component: {fileID: 1130579968}
   - component: {fileID: 1130579967}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RockMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4437,6 +4407,22 @@ PrefabInstance:
       propertyPath: EnemyPerWave.Array.data[5]._enemyWaveInfos.Array.data[1].enemy
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4554767620845308850, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554767620845308850, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554767620845308850, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554767620845308850, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5419377100981523716, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -4448,7 +4434,7 @@ PrefabInstance:
     - target: {fileID: 8888880807603392103, guid: 9129bdf2443e9574faa3e7bd74037987, type: 3}
       propertyPath: _navMeshSurface
       value: 
-      objectReference: {fileID: 689377075}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4949,6 +4935,7 @@ MonoBehaviour:
   status: {fileID: 0}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
 --- !u!4 &1583924368
 Transform:
@@ -5008,7 +4995,7 @@ GameObject:
   - component: {fileID: 1625543035}
   - component: {fileID: 1625543034}
   - component: {fileID: 1625543033}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GoldMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6009,6 +5996,7 @@ MonoBehaviour:
   _rockMeshCollider: {fileID: 1130579967}
   _bottomMeshRenderer: {fileID: 689377072}
   _bottomStroke: 0.05
+  _navMeshSurface: {fileID: 787481205}
   position: {x: 120, y: 120}
 --- !u!114 &1843183406
 MonoBehaviour:
@@ -8334,7 +8322,6 @@ SceneRoots:
   - {fileID: 916303334}
   - {fileID: 1215602305}
   - {fileID: 620375957}
-  - {fileID: 689377074}
   - {fileID: 85494902}
   - {fileID: 803513713}
   - {fileID: 1336377399}

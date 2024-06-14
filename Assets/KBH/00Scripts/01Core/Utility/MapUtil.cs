@@ -86,6 +86,7 @@ public class MapUtil : MonoSingleton<MapUtil>
    public Dictionary<Vector2Int, Agent> agentRegisteDictionary
       = new Dictionary<Vector2Int, Agent>();
 
+   [SerializeField] private NavMeshSurface _navMeshSurface;
 
 #if UNITY_EDITOR
 
@@ -104,6 +105,7 @@ public class MapUtil : MonoSingleton<MapUtil>
    {
       GenerateMap();
       SetMaterial(isShow : true, 2f);
+      _navMeshSurface.BuildNavMesh();
    }
 
 

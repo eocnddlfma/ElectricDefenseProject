@@ -39,6 +39,11 @@ public class Building<T> : Agent, IBuildingAgent
       base.Awake();
    }
 
+   public virtual void Update()
+   {
+      mainStateMachine.Update();
+   }
+
 
    public override void WakeUpAction()
    {

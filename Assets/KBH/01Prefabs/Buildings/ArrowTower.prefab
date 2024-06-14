@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 1
-  attackUnwindDetectRadius: 2
+  attackUnwindDetectRadius: 1.2
   isGizmoDraw: 0
 --- !u!114 &5682625307025425152
 MonoBehaviour:
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  attackDetectRadius: 2
+  attackDetectRadius: 1
   isGizmoDraw: 0
 --- !u!114 &6998888835453797670
 MonoBehaviour:
@@ -409,6 +409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3dc7a93688b488458ca3626f2f0bc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closestEnemy: {fileID: 0}
+  baseDetectDistance: 5
+  arrowPerSecond: 2
+  hasBoomSplash: 0
+  boomSplashRange: 2
 --- !u!1 &958313198269609003
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +526,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958313198269609003}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1248,6 +1253,7 @@ MonoBehaviour:
   status: {fileID: 7045012019421530207}
   health: {fileID: 5209157554617767170}
   damageCaster: {fileID: -4580170332117136288}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
   _buildingInfoSO: {fileID: 11400000, guid: 431fef0383945994c9394faf9780fcbc, type: 2}
   mainStateMachine:
@@ -1296,6 +1302,8 @@ MonoBehaviour:
   _canvasGroup: {fileID: 0}
   _firstUpgradeBtn: {fileID: 7069647957806892507}
   _secondUpgradeBtn: {fileID: 1515703912262996734}
+  _stayStateReference: {fileID: 0}
+  _bulbAgent: {fileID: 5667466030447677025, guid: 0906606260aaa3648a465fb6655c5b4d, type: 3}
 --- !u!114 &-4580170332117136288
 MonoBehaviour:
   m_ObjectHideFlags: 0

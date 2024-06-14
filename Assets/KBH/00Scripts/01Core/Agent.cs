@@ -23,4 +23,9 @@ public class Agent : MonoBehaviour
       health.Initialize(this);
    }
 
+   public virtual void Die()
+   {
+      
+   }
+
 }

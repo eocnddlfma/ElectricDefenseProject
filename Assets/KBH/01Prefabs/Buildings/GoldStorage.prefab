@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1364373549047899722}
   - component: {fileID: 1986572951725852321}
   - component: {fileID: 8022282579108308502}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +117,8 @@ GameObject:
   - component: {fileID: 22152961440056918}
   - component: {fileID: 8041877978237432667}
   - component: {fileID: 6736809364705384952}
+  - component: {fileID: -5062720329278501109}
+  - component: {fileID: -865314959149284308}
   m_Layer: 7
   m_Name: GoldStorage
   m_TagString: Untagged
@@ -155,9 +157,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentType: 2
-  status: {fileID: 0}
+  status: {fileID: -5062720329278501109}
   health: {fileID: 0}
   damageCaster: {fileID: 0}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
   _buildingInfoSO: {fileID: 11400000, guid: a83971a853109af4f8fd0ed68ee81973, type: 2}
   mainStateMachine:
@@ -198,6 +201,44 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-5062720329278501109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718399377875135854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6662d867b17a1fe43b6d97f3e4eee88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  maxHp: 5
+  damage: 0
+--- !u!136 &-865314959149284308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718399377875135854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3934386911331078956
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +251,7 @@ GameObject:
   - component: {fileID: 853264990059596057}
   - component: {fileID: 4746893536674579967}
   - component: {fileID: 3516883076505051847}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.842
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.z

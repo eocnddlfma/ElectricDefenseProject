@@ -28,12 +28,13 @@ public class EnemyTargetFinder : MonoBehaviour
             {
                 foreach(var a in _raycastHits)
                 {
+                    print(a.transform.name);
                     a.transform.GetComponent<HighWall>().Die();//벽 그대로 부숨
                     a.transform.GetComponent<LowWall>().Die();//벽 그대로 부숨
                 }
             }
 
-            if (EnemyRouteManager.Instance.HasRouteToBuilding(enemy._navMeshAgent))
+            if (EnemyRouteManager.Instance.HasRoute(enemy._navMeshAgent))
             {
                 enemy.target = EnemyRouteManager.Instance.CommandBuilding;
             }
@@ -41,7 +42,7 @@ public class EnemyTargetFinder : MonoBehaviour
             {
                 hits = Physics.SphereCastNonAlloc(
                     transform.position, enemy.enemyStatus.attackRadius*5,//보이는 곳에 벽 빌딩이 있는가?
-                    Vector3.up, _raycastHits, 0f, resourceBuildingLayer | wallBuildingLayer);//layer 모든 빌딩
+                    Vector3.up, _raycastHits, 0f, resourceBuildingLayer |wallBuildingLayer);//layer 모든 빌딩
 
                 if (hits > 0)
                 {
@@ -74,29 +75,33 @@ public class EnemyTargetFinder : MonoBehaviour
         else // 아무 빌딩 확인일 경우
         {
             //if(BuildingUtil.Instance.buildingList.Count>0) //아무 빌딩이라도 존재할 경우
+            
             //    enemy.target = GetClosestBuilding(BuildingUtil.Instance.buildingList.ToArray());//위치가 가장 가까운 빌딩 선택
             var hits = Physics.SphereCastNonAlloc(
                 transform.position, enemy.enemyStatus.attackRadius*10,//보이는 곳에 벽 빌딩이 있는가?
-                Vector3.up, _raycastHits, 0f, resourceBuildingLayer | wallBuildingLayer);//layer 모든 빌딩
-
+                Vector3.up, _raycastHits, 0f, resourceBuildingLayer | wallBuildingLayer | attackBuildingLayer);//layer 모든 빌딩
+            print(hits);
             if (hits > 0)
             {
-                enemy.target = _raycastHits[0].transform.GetComponent<Agent>();//아무빌딩이나 시야에 잡히면 그 빌딩 부시러 감 ㅂ
+                print(_raycastHits[0].transform.name);
+                enemy.target = GetClosestBuilding(); //아무빌딩이나 시야에 잡히면 그 빌딩 부시러 감 ㅂ
+                print("foundTarget");
+                print(enemy.target.name);
             }
         }
         
     }    
     
-    public Agent GetClosestBuilding(Agent[] buildingList)
+    public Agent GetClosestBuilding()
     {
-        Agent closest = buildingList[0];
+        Agent closest = _raycastHits[0].transform.GetComponent<Agent>();
         Vector3 myPos = transform.position;
         float distance = Vector3.Distance(myPos, closest.transform.position);
-        for (int i = 1; i < buildingList.Length; i++)
+        for (int i = 1; i < _raycastHits.Length; i++)
         {
-            if (Vector3.Distance(myPos, buildingList[i].transform.position) < distance)
+            if (Vector3.Distance(myPos, _raycastHits[i].transform.position) < distance)
             {
-                closest = buildingList[i];
+                closest = _raycastHits[i].transform.GetComponent<Agent>();
                 distance = Vector3.Distance(myPos, closest.transform.position);
             }
         }
@@ -111,6 +116,6 @@ public class EnemyTargetFinder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-//        Gizmos.DrawWireSphere(transform.position, enemy.enemyStatus.attackRadius/2);
+//        Gizmos.DrawWireSphere(transform.position, enemy.enemyStatus.attackRadius*5);
     }
 }

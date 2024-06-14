@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7441147022262192388}
   - component: {fileID: 3916946521839437487}
   - component: {fileID: 1400150782968562232}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 888856520023122178}
   - component: {fileID: 8652417710092123688}
   - component: {fileID: 4103879507427328518}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 7582077231004697116}
   - component: {fileID: 7209635061745481308}
   - component: {fileID: 7012210927558137746}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Stroke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 2014031364464897415}
   - component: {fileID: 5682625307025425152}
   - component: {fileID: 6998888835453797670}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 3458598428147801995}
   - component: {fileID: 6785615144672435024}
   - component: {fileID: 4102539011364535600}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LevelTreeCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 5085202774418331064}
   - component: {fileID: 7738956848299140194}
   - component: {fileID: 7355305471628752628}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AlreadyUpgradedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,10 +670,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7146638063724826306}
-  - component: {fileID: 1297929810217536794}
   - component: {fileID: 3306444867412733430}
   - component: {fileID: 2622991822234281057}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,27 +694,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7025549118299651198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1297929810217536794
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4661398983007480824}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &3306444867412733430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -777,7 +755,7 @@ GameObject:
   - component: {fileID: 6042166013758756185}
   - component: {fileID: 2689175959572316090}
   - component: {fileID: 1379611798973345599}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +830,7 @@ GameObject:
   - component: {fileID: 6870976926685434563}
   - component: {fileID: 530411810056300858}
   - component: {fileID: 2930192138357687909}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: NoUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +908,7 @@ GameObject:
   - component: {fileID: 1602600374128740978}
   - component: {fileID: 9176038640249767836}
   - component: {fileID: 4016071016701949520}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: YesUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +986,7 @@ GameObject:
   - component: {fileID: 8855762529747288441}
   - component: {fileID: 835879403970713656}
   - component: {fileID: 8171065208195855711}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1062,7 @@ GameObject:
   - component: {fileID: 4346522490318325766}
   - component: {fileID: 8363020787719503204}
   - component: {fileID: 7069647957806892507}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1205,7 +1183,8 @@ GameObject:
   - component: {fileID: -4580170332117136288}
   - component: {fileID: 711427944269616998}
   - component: {fileID: 7045012019421530207}
-  m_Layer: 7
+  - component: {fileID: 5865060555476601332}
+  m_Layer: 11
   m_Name: ArrowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,6 +1227,7 @@ MonoBehaviour:
   status: {fileID: 7045012019421530207}
   health: {fileID: 5209157554617767170}
   damageCaster: {fileID: -4580170332117136288}
+  collider: {fileID: 0}
   <cellPosition>k__BackingField: {x: 0, y: 0}
   _buildingInfoSO: {fileID: 11400000, guid: 431fef0383945994c9394faf9780fcbc, type: 2}
   mainStateMachine:
@@ -1321,7 +1301,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1340,6 +1320,29 @@ MonoBehaviour:
   hp: 0
   maxHp: 20
   damage: 5
+--- !u!136 &5865060555476601332
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549614264107127107}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7687815448668843244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1355,7 @@ GameObject:
   - component: {fileID: 2689149589348274887}
   - component: {fileID: 6198637885861496977}
   - component: {fileID: 1515703912262996734}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1470,7 +1473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 601301711423579768}
   - component: {fileID: 4483933896830720920}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1518,7 +1521,7 @@ GameObject:
   - component: {fileID: 4276774099060952706}
   - component: {fileID: 3566732422576968606}
   - component: {fileID: 6492734744214318214}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1730,7 +1733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.01
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3486786888438609624, guid: 51b4309a85b93b34d8c20759ba221770, type: 3}
       propertyPath: m_LocalPosition.z

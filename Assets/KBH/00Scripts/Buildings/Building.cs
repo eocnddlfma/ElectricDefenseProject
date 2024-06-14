@@ -54,7 +54,7 @@ public class Building<T> : Agent, IBuildingAgent
    }
 
 
-   public virtual void Die()
+   public override void Die()
    {
       Destroy(collider);
       float dissolveTime = 2f;

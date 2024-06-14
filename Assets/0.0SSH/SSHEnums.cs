@@ -3,6 +3,8 @@ public enum EnemyStateEnum
     Idle,
     Move, 
     Attack,
+    GetHit,
+    Die
 }
 
 public enum EnemyTargetPriorityEnum

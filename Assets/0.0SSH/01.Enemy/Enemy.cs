@@ -48,11 +48,26 @@ public class Enemy : Agent
     {
         EnemyManager.Instance.enemyList.Remove(this);
     }
-    
+
+    public override void Die()
+    {
+        base.Die();
+        Destroy(gameObject);
+    }
 
     void Update()
     {
         _stateMachine.Update();
+    }
+    
+    public bool HasTarget()
+    {
+        if (target != null && target.isActiveAndEnabled)
+        {
+            return true;
+        }
+        TargetFinder.FindTarget();
+        return false;
     }
 
 }

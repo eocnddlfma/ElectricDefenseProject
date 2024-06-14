@@ -24,13 +24,11 @@ public class EnemyAttack : EnemyState
     {
         yield return null;
         yield return null;
-        yield return null;
-        yield return null;
         animationLength = _enemyReference._animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         print(_enemyReference._animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-        _enemyReference._baseEnemyAttack.Attack(transform, _enemyReference.refTarget, animationLength);
+        _enemyReference._baseEnemyAttack.Attack(transform, _enemyReference._enemy.target, animationLength);
         //yield return new WaitForSeconds(animationLength / _enemyReference._enemyStatus.attackTimeMultiplier);
-        yield return new WaitForSeconds(animationLength);
+        yield return new WaitForSeconds(animationLength-Time.deltaTime*2);
         isAttackFinished = true;
     }
 

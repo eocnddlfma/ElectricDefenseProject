@@ -26,7 +26,7 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
         NavMeshUpdate();
     }
     
-    public bool HasRouteToBuilding(NavMeshAgent navMeshAgent)
+    public bool HasRoute(NavMeshAgent navMeshAgent)
     {
         if (navMeshAgent.hasPath)
         {

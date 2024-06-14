@@ -17,7 +17,7 @@ public class PlayerMoveInfo
 
    public void Move(Vector2 moveDir)
    {
-      Debug.Log(moveDir);
+      //Debug.Log(moveDir);
       Vector3 newMovedir = new Vector3(moveDir.x, 0, moveDir.y);
       _trm.position += newMovedir * (Time.deltaTime * _speed);
    }

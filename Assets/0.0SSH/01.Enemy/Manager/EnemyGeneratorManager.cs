@@ -15,7 +15,6 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
     void Awake()
     {
         AbleGeneratePos = new List<Transform>();
-        
         _dictionary = new Dictionary<EnemyType, GameObject>();
         _enemyTableSO.list.ForEach((a) => _dictionary.Add(a.type, a.prefab));
         GeneratePos = transform.Find("EnemyGenerator").GetComponentsInChildren<Transform>().ToList();
@@ -31,7 +30,7 @@ public class EnemyGeneratorManager : MonoSingleton<EnemyGeneratorManager>
             var hits = Physics.SphereCastNonAlloc(
                 transform.position, buildingCheckDistance,//보이는 곳에 자원 빌딩이 있는가?
                 Vector3.up, _raycastHits, 0f, 1<<7);//layer7 == resourcebuilding
-            print(hits);
+//            print(hits);
             if (hits == 0)
             {
                 AbleGeneratePos.Add(a);

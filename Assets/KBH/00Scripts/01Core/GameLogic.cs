@@ -204,10 +204,10 @@ public class GameLogic : LinkAgent<GameState, AgentType>
    //      _selectedUpgradeAgent = null;
    //_selectedUpgradseAgent.ShowDebug();
    //_selectedUpgradeAgent = Shot3DUtil.GetAgentOnCurrentCursor() as IBuildingAgent;
-   // ¿©±â¼­ ÇÃ·¹ÀÌ¾î°¡ ÇÏ´Â Çàµ¿ ÀÌº¥Æ®µéÀ» ±¸µ¶ÇÏ°í ¹»ÇÏ´ÂÁö¸¦ ÁöÄÑºÁ¾ß ÇÑ´Ù. 
-   // 1. BuildingÀ» ¸¸µé ¶§ ¾î¶² °ÍÀ» ¸¸µé°í ¾î¶² À§Ä¡¿¡ ¸¸µå´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
-   // 2. ÇöÀç °¡¸®Å°°í ÀÖ´Â Ä¿¼­ À§Ä¡¿Í ÇöÀç UI »óÅÂ¿¡ µû¶ó¼­ ¾î¶² Çàµ¿À» ÇÒ ¼ö ÀÖ´ÂÁö¸¦
-   // °áÁ¤Áö¾î¾ß ÇÑ´Ù. 
+   // ì—¬ê¸°ì„œ í”Œë ˆì´ì–´ê°€ í•˜ëŠ” í–‰ë™ ì´ë²¤íŠ¸ë“¤ì„ êµ¬ë…í•˜ê³  ë­˜í•˜ëŠ”ì§€ë¥¼ ì§€ì¼œë´ì•¼ í•œë‹¤. 
+   // 1. Buildingì„ ë§Œë“¤ ë•Œ ì–´ë–¤ ê²ƒì„ ë§Œë“¤ê³  ì–´ë–¤ ìœ„ì¹˜ì— ë§Œë“œëŠ”ì§€ë¥¼ ì²´í¬í•œë‹¤.
+   // 2. í˜„ìž¬ ê°€ë¦¬í‚¤ê³  ìžˆëŠ” ì»¤ì„œ ìœ„ì¹˜ì™€ í˜„ìž¬ UI ìƒíƒœì— ë”°ë¼ì„œ ì–´ë–¤ í–‰ë™ì„ í•  ìˆ˜ ìžˆëŠ”ì§€ë¥¼
+   // ê²°ì •ì§€ì–´ì•¼ í•œë‹¤. 
 
 
 

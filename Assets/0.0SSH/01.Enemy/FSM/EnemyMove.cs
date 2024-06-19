@@ -12,6 +12,7 @@ public class EnemyMove : EnemyState
         base.Enter();
         Debug.Log("enemyStateMove");
         _enemyReference._navMeshAgent.enabled = true;
+        StartCoroutine(FindRefresh());
     }
 
     private RaycastHit[] _raycastHits;
@@ -43,8 +44,17 @@ public class EnemyMove : EnemyState
         return false;
     }
 
+    IEnumerator FindRefresh()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+            _enemyReference._enemy.TargetFinder.FindTarget();
+        }
+    }
     public override void Exit()
     {
+        StopCoroutine(FindRefresh());
         _enemyReference._navMeshAgent.enabled = false;
         base.Exit();
     }

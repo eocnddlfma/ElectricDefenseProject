@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class UIUtil : MonoSingleton<UIUtil>
+public class PlayerUI : MonoBehaviour
 {
    private GameMode _previousMode;
 

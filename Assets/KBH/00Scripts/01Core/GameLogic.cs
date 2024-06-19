@@ -2,25 +2,21 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class GameLogic : LinkAgent<GameState, AgentType>
+public class GameLogic : BaseAgent
 {
    [Space(35), Header("Player Setting")]
    [SerializeField] private PlayerAgent playerBowl;
    [SerializeField] private Player _player;
-   //[Space(35), Header("Player Setting")]
-
+   
+   [Space(35), Header("Select Setting")]
    private Vector2Int _previousSelectedBuildingCellPosition;
    private Vector3 _previousSelectedBuildingPosition;
    [SerializeField] private Agent _selectedAgent = null;
    [SerializeField] private MoveBuildingOrder _currentMoveOrder;
+   
 
-   public override void Initialize(MonoBehaviour owner, YieldInstruction yieldInstruction, ILinkable<GameState> parent = null)
+   public override void Initialize()
    {
-      base.Initialize(owner, yieldInstruction, parent);
-
-      _player.Initialize(playerBowl, null, this);
-      AddAgentAt(_player, AgentType.Player);
-
       InputUtil.Instance.OnClickEvent += OnClickHandle;
    }
 
@@ -43,24 +39,7 @@ public class GameLogic : LinkAgent<GameState, AgentType>
    }
 
 
-   public override void Run()
-   {
-      _player.Run();
-      _player.Enable(-1);
 
-      _player.buildInfo.OnAddEvent += HandleBuildEvent;
-
-      _player.buildInfo.OnEraseEvent += HandleEraseEvent;
-
-      _player.buildInfo.OnMoveStartEvent += HandleMoveStartEvent;
-      _player.buildInfo.OnMoveDuringEvent += HandleMoveDuringEvent;
-      _player.buildInfo.OnMoveEndEvent += HandleMoveEndEvent;
-
-      _player.upgradeInfo.UpgradeEvent += HandleUpgradeEvent;
-      _player.upgradeInfo.EndUpgradeEvent += HandleEndUpgradeEvent;
-
-      base.Run();
-   }
 
    private void HandleEndUpgradeEvent()
    {
@@ -176,39 +155,7 @@ public class GameLogic : LinkAgent<GameState, AgentType>
 
    public override void Update()
    {
-      base.Update();
    }
-
-   public override void Sleep()
-   {
-
-      _player.buildInfo.OnAddEvent -= HandleBuildEvent;
-
-      _player.buildInfo.OnEraseEvent -= HandleEraseEvent;
-
-      _player.buildInfo.OnMoveStartEvent -= HandleMoveStartEvent;
-      _player.buildInfo.OnMoveDuringEvent -= HandleMoveDuringEvent;
-      _player.buildInfo.OnMoveEndEvent -= HandleMoveEndEvent;
-
-      _player.upgradeInfo.UpgradeEvent -= HandleUpgradeEvent;
-      _player.upgradeInfo.EndUpgradeEvent -= HandleEndUpgradeEvent;
-
-
-      _player.Disable();
-      base.Sleep();
-   }
-
-
-
-   //_selectedUpgradeAgent.HideDebug();
-   //      _selectedUpgradeAgent = null;
-   //_selectedUpgradseAgent.ShowDebug();
-   //_selectedUpgradeAgent = Shot3DUtil.GetAgentOnCurrentCursor() as IBuildingAgent;
-   // 여기서 플레이어가 하는 행동 이벤트들을 구독하고 뭘하는지를 지켜봐야 한다. 
-   // 1. Building을 만들 때 어떤 것을 만들고 어떤 위치에 만드는지를 체크한다.
-   // 2. 현재 가리키고 있는 커서 위치와 현재 UI 상태에 따라서 어떤 행동을 할 수 있는지를
-   // 결정지어야 한다. 
-
 
 
 }

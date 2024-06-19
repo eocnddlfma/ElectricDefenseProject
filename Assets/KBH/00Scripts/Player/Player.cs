@@ -5,11 +5,14 @@ public class Player : OperateAgent<AgentType>
 {
 
    [Header("Compoents")]
+   public PlayerUI playerUI;
    public PlayerMoveInfo moveInfo;
    public StateMachine<GameMode> stateMachine;
    public PlayerCamInfo camInfo;
    public PlayerBuildInfo buildInfo;
    public PlayerUpgradeInfo upgradeInfo;
+
+
 
 
    private GameMode _previousState;
@@ -87,7 +90,7 @@ public class Player : OperateAgent<AgentType>
    private void BuildAction()
    {
       ToolBarEnum currentToolbarType
-         = UIUtil.Instance.buildCanvas.CurrentToolbarType;
+         = playerUI.buildCanvas.CurrentToolbarType;
       Shot3DUtil
          .SetCursorShotVisual(currentToolbarType);
 
@@ -110,7 +113,7 @@ public class Player : OperateAgent<AgentType>
       }
 
       bool isAdd = currentToolbarType == ToolBarEnum.Add;
-      UIUtil.Instance.buildCanvas.IsBuildingBarActive = isAdd;
+      playerUI.buildCanvas.IsBuildingBarActive = isAdd;
    }
 
 
@@ -123,7 +126,7 @@ public class Player : OperateAgent<AgentType>
 
       if (currentState == GameMode.View)
       {
-         UIUtil.Instance.OnModeChange(GameMode.View);
+         playerUI.OnModeChange(GameMode.View);
       }
 
       if (previousState == GameMode.Upgrade)
@@ -141,7 +144,7 @@ public class Player : OperateAgent<AgentType>
          {
             camInfo.SetCameraSetting(GameMode.Upgrade, target);
             Shot3DUtil.SetCursorShotVisual(ToolBarEnum.Upgrade);
-            UIUtil.Instance.OnModeChange(GameMode.Upgrade);
+            playerUI.OnModeChange(GameMode.Upgrade);
          }
       }
    }

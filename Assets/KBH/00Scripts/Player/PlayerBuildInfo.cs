@@ -21,6 +21,7 @@ public class PlayerBuildInfo
    public event Action OnMoveStartEvent = null;
    public event Action OnMoveDuringEvent = null;
    public event Action OnMoveEndEvent = null;
+   public PlayerUI _playerUI;
 
 
    private Agent _owner;
@@ -99,7 +100,7 @@ public class PlayerBuildInfo
    public void AddBuildingAction()
    {
       CursorShotStateEnum cursorShotState = CursorShotStateEnum.Default;
-      AgentType currentBuildingType = UIUtil.Instance.buildCanvas.CurrentBuildingType;
+      AgentType currentBuildingType = _playerUI.buildCanvas.CurrentBuildingType;
       Shot3DUtil.SetDrawingMesh(currentBuildingType);
 
 
@@ -110,8 +111,8 @@ public class PlayerBuildInfo
          if (Input.GetKeyDown(KeyCode.Space))
          {
             Vector2Int addPosition = Shot3DUtil.cursorCellPosition;
-            OnAddEvent?.Invoke
-               (UIUtil.Instance.buildCanvas.CurrentBuildingType, addPosition);
+            //OnAddEvent?.Invoke
+            //   (PlayerUI.buildCanvas.CurrentBuildingType, addPosition);
 
          }
       }

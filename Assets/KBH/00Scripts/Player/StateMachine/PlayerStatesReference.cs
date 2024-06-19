@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStatesReference : StatesReference<GameMode>
 {
-   [SerializeField] private UIUtil uiManager;
+   [SerializeField] private PlayerUI uiManager;
    public GameMode currentGameMode => uiManager.coreCanvas.currentMode;
 
    

@@ -17,13 +17,13 @@ public class GameManager : MonoSingleton<GameManager>
       IDOTweenInit dotweenInit
          = DOTween.Init(true, true, LogBehaviour.Verbose);
       dotweenInit.SetCapacity(50, 100);
+
+      _gameLogic = transform.Find("GameLogic").GetComponent<GameLogic>();
+      _gameLogic.Initialize();
    }
 
    private void Start()
    {
-      _gameLogic.Initialize(this, null, parent : null);
-      _gameLogic.Run();
-      _gameLogic.Enable(-1);
    }
 
 

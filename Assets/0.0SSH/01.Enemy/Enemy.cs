@@ -16,8 +16,8 @@ public class Enemy : Agent
     public EnemyStatus enemyStatus;
 
 
-    [FormerlySerializedAs("Target")] public Agent target;
-    
+    public Agent target;
+
     private void Awake()
     {
         enemyStatus = status as EnemyStatus;
@@ -62,8 +62,9 @@ public class Enemy : Agent
     
     public bool HasTarget()
     {
-        if (target != null && target.isActiveAndEnabled)
+        if (target != null && target.gameObject.activeSelf)
         {
+            print("has a target");
             return true;
         }
         TargetFinder.FindTarget();

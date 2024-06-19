@@ -31,12 +31,13 @@ public class EnemyMove : EnemyState
         else
         {
             bool isset = _enemyReference._navMeshAgent.SetDestination(new Vector3(0, 0, 0));
+            print("destination set to 0,0,0");
         }
 
         if(EnemyRouteManager.Instance.HasRoute(_enemyReference._navMeshAgent))
         {
-            //Debug.Log("야임마 길 없어!!");
-            Debug.Log(_enemyReference._navMeshAgent.destination);
+            Debug.Log("야임마 길 없어!!");
+            //Debug.Log(_enemyReference._navMeshAgent.destination);
         }
         
         return false;
@@ -44,7 +45,7 @@ public class EnemyMove : EnemyState
 
     public override void Exit()
     {
-        base.Exit();
         _enemyReference._navMeshAgent.enabled = false;
+        base.Exit();
     }
 }

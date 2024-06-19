@@ -130,18 +130,18 @@ public class ArrowTower : Building<ArrowTowerStateEnum>
 
       if ((currentType & ArrowTowerType.Slow_Energy) > 0)
       {
-         // ¾ÆÁ÷ ±¸Çö Áß
+         // ì•„ì§ êµ¬í˜„ ì¤‘
       }
 
       if ((currentType & ArrowTowerType.Sniping) > 0)
       {
          _stayStateReference.baseDetectDistance = 10;
-         // ¾ÆÁ÷ ±¸Çö Áß
+         // ì•„ì§ êµ¬í˜„ ì¤‘
       }
 
       if ((currentType & ArrowTowerType.Stun_Effect) > 0)
       {
-         // ¾ÆÁ÷ ±¸Çö Áß
+         // ì•„ì§ êµ¬í˜„ ì¤‘
       }
    }
 

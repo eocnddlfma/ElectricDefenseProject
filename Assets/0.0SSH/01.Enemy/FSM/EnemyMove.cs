@@ -17,11 +17,11 @@ public class EnemyMove : EnemyState
     private RaycastHit[] _raycastHits;
     public override bool CanChangeToOther(ref EnemyStateEnum state)
     {
-        if (_enemyReference.HasTarget())
+        if (_enemyReference._enemy.HasTarget())
         {
-            _enemyReference._navMeshAgent.SetDestination(_enemyReference.refTarget.transform.position);
-            print(_enemyReference.refTarget);
-            if (Vector3.Distance(_enemyReference.refTarget.transform.position, transform.position) <
+            _enemyReference._navMeshAgent.SetDestination(_enemyReference._enemy.target.transform.position);
+            print(_enemyReference._enemy.target);
+            if (Vector3.Distance(_enemyReference._enemy.target.transform.position, transform.position) <
                 _enemyReference._status.attackRadius)
             {
                 state = EnemyStateEnum.Attack;
@@ -31,11 +31,13 @@ public class EnemyMove : EnemyState
         else
         {
             bool isset = _enemyReference._navMeshAgent.SetDestination(new Vector3(0, 0, 0));
+            print("destination set to 0,0,0");
         }
 
-        if(EnemyRouteManager.Instance.HasRouteToBuilding(_enemyReference._navMeshAgent))
+        if(EnemyRouteManager.Instance.HasRoute(_enemyReference._navMeshAgent))
         {
             Debug.Log("야임마 길 없어!!");
+            //Debug.Log(_enemyReference._navMeshAgent.destination);
         }
         
         return false;
@@ -43,7 +45,7 @@ public class EnemyMove : EnemyState
 
     public override void Exit()
     {
-        base.Exit();
         _enemyReference._navMeshAgent.enabled = false;
+        base.Exit();
     }
 }

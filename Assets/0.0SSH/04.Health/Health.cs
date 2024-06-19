@@ -36,24 +36,24 @@ public class Health : MonoBehaviour
     public void DoDamage(int damage)
     {
         Hp = hp - damage;
-        if(hp<0){}
-        //_agent.Die();
+        if(hp<0)
+            _agent.Die();
             
     }
     /** 딜레이 데미지 */
     public void DoDamage(float waitSecond ,int damage)
     {
         StartCoroutine(DamageTimer(waitSecond, damage));
-        if(hp<0){}
-        //_agent.Die();
+        if(hp<0)
+            _agent.Die();
             
     }
     /** 스턴 데미지 */
     public void DoDamage(int damage, float stunTime)
     {
         Hp = hp - damage;
-        if(hp<0){}
-            //_agent.Die();
+        if(hp<0)
+            _agent.Die();
         _stunTime = stunTime;
     }
 

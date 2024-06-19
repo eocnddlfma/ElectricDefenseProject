@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66416e4f35ad73c439c3b8b99feea1af, type: 3}
-  m_Name: GoblinArcher
+  m_Name: EliteArcher
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4316872930193527615, guid: 7d052cd0c55f2bd4fa7cfdf208152993, type: 3}
-  type: 4
+  prefab: {fileID: 4316872930193527615, guid: 4dc8490311613fc4cb8452807ab89f25, type: 3}
+  type: 3

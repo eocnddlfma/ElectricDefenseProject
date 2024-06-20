@@ -11,12 +11,12 @@ public class EnemyTargetFinder : MonoBehaviour
     public LayerMask resourceBuildingLayer;
     public LayerMask wallBuildingLayer;
     public LayerMask attackBuildingLayer;
-    public Agent target; 
     private void Awake()
     {
         enemy = GetComponent<Enemy>();
     }
-    
+
+    public Transform closest;
     private RaycastHit[] _raycastHits = new RaycastHit[99];
     [SerializeField]public List<Transform> fordebug;
     public void FindTarget()
@@ -89,26 +89,36 @@ public class EnemyTargetFinder : MonoBehaviour
                 fordebug.Clear();
                 foreach (var a in _raycastHits)
                 {
+                    if(a.transform!=null)
                     fordebug.Add(a.transform);
                 }
                 Vector3 myPos = transform.position;
-                Agent closest = fordebug[0].GetComponent<Agent>();
+                closest = transform;
                 Debug.Log("agent : " + closest);
-                float distance = Vector3.Distance(myPos, closest.transform.position);
-                
-                for (int i = 1; i < fordebug.Count; i++)
+
+                if (fordebug.Count < 1)
+                    return;
+                fordebug.Add(transform);
+                do
                 {
-                    if (fordebug[i]) break;
-                    if (Vector3.Distance(myPos, fordebug[i].position) < distance)
+                    fordebug.Remove(closest);
+                    closest = fordebug[0];
+                    for (int i = 1; i < fordebug.Count; i++)
                     {
-                        closest = fordebug[i].GetComponent<Agent>();
-                        distance = Vector3.Distance(myPos, closest.transform.position);
+                        if (!fordebug[i].gameObject.activeSelf)
+                        {
+                            fordebug.Remove(fordebug[i]);
+                            i--;
+                            continue;
+                        }
+                        if (Vector3.Distance(myPos, fordebug[i].position) < Vector3.Distance(myPos, closest.position))
+                        {
+                            closest = fordebug[i];
+                        }
                     }
-                }
-                
+                    enemy.target = closest.GetComponent<Agent>();
+                } while (!EnemyRouteManager.Instance.HasRoute(enemy._navMeshAgent));
                 Debug.Log(closest + "closest");
-                target = closest;
-                enemy.target = closest;
                 print("foundTarget : " + enemy.target.name);
             }
         }

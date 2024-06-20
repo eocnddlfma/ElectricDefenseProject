@@ -70,6 +70,8 @@ public class BuildCanvas : UIAgent
       get => IsBuildingBarActive;
       set
       {
+         return;
+         // 차후 개발할 예정입니다. 
          if(isBuildingBarActive != value)
          {
             float transitionTime = 0.25f;

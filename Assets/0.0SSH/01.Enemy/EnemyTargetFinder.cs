@@ -35,36 +35,10 @@ public class EnemyTargetFinder : MonoBehaviour
                     a.transform.GetComponent<HighWall>().Die();//벽 그대로 부숨
                     a.transform.GetComponent<LowWall>().Die();//벽 그대로 부숨
                 }
-            }
-
-            if (EnemyRouteManager.Instance.HasRoute(enemy._navMeshAgent))
-            {
-                enemy.target = EnemyRouteManager.Instance.CommandBuilding;
-            }
-            else
-            {
-                hits = Physics.SphereCastNonAlloc(
-                    transform.position, enemy.enemyStatus.attackRadius*5,//보이는 곳에 벽 빌딩이 있는가?
-                    Vector3.up, _raycastHits, 0f, resourceBuildingLayer |wallBuildingLayer);//layer 모든 빌딩
-
-                if (hits > 0)
-                {
-                    enemy.target = _raycastHits[0].transform.GetComponent<Agent>();//아무빌딩이나 시야에 잡히면 그 빌딩 부시러 감 ㅂ
-                }
-                else
-                {
-                    hits = Physics.SphereCastNonAlloc(
-                        transform.position, enemy.enemyStatus.attackRadius*7,//보이는 곳에 벽 빌딩이 있는가?
-                        Vector3.up, _raycastHits, 0f, resourceBuildingLayer | wallBuildingLayer | attackBuildingLayer);//layer 모든 빌딩
-
-                    if (hits > 0)
-                    {
-                        enemy.target = _raycastHits[0].transform.GetComponent<Agent>();//아무빌딩이나 시야에 잡히면 그 빌딩 부시러 감 ㅂ
-                    }
-                }
+                return;
             }
         }
-        else if (enemy.enemyStatus.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior) // 자원도둑일 경우
+        if (enemy.enemyStatus.moveTargetPriority == EnemyTargetPriorityEnum.ResourcePrior) // 자원도둑일 경우
         {
             var hits = Physics.SphereCastNonAlloc(
                 transform.position, enemy.enemyStatus.attackRadius*7,//보이는 곳에 벽 빌딩이 있는가?
@@ -73,9 +47,11 @@ public class EnemyTargetFinder : MonoBehaviour
             if (hits > 0)
             {
                 enemy.target = _raycastHits[0].transform.GetComponent<Agent>();//해당 자원 빌딩을 우선으로 이동
+                return;
             }
         }
-        else // 아무 빌딩 확인일 경우
+        
+        // 아무 빌딩 확인일 경우
         {
             //if(BuildingUtil.Instance.buildingList.Count>0) //아무 빌딩이라도 존재할 경우
             
@@ -89,7 +65,7 @@ public class EnemyTargetFinder : MonoBehaviour
                 fordebug.Clear();
                 foreach (var a in _raycastHits)
                 {
-                    if(a.transform!=null)
+                    if(a.transform != null)
                     fordebug.Add(a.transform);
                 }
                 Vector3 myPos = transform.position;

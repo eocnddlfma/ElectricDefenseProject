@@ -2173,7 +2173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787481204}
-  - component: {fileID: 787481205}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -2199,37 +2198,6 @@ Transform:
   - {fileID: 689377074}
   m_Father: {fileID: 1843183404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &787481205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787481203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 1bec0bcf8b1c1d64db74c0a2a90cfc37, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &803513712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,7 +3312,7 @@ GameObject:
   - component: {fileID: 1130579969}
   - component: {fileID: 1130579968}
   - component: {fileID: 1130579967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RockMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5098,7 +5066,7 @@ GameObject:
   - component: {fileID: 1625543035}
   - component: {fileID: 1625543034}
   - component: {fileID: 1625543033}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GoldMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6099,7 +6067,7 @@ MonoBehaviour:
   _rockMeshCollider: {fileID: 1130579967}
   _bottomMeshRenderer: {fileID: 689377072}
   _bottomStroke: 0.05
-  _navMeshSurface: {fileID: 787481205}
+  _navMeshSurface: {fileID: 0}
   position: {x: 120, y: 120}
 --- !u!114 &1843183406
 MonoBehaviour:

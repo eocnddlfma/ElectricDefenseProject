@@ -33,13 +33,6 @@ public class EnemyMove : EnemyState
          bool isset = _enemyReference._navMeshAgent.SetDestination(new Vector3(0, 0, 0));
          print("destination set to 0,0,0");
       }
-
-      if (EnemyRouteManager.Instance.HasRoute(_enemyReference._navMeshAgent))
-      {
-         Debug.Log("야임마 길 없어!!");
-         //Debug.Log(_enemyReference._navMeshAgent.destination);
-      }
-
       return false;
    }
 

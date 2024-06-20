@@ -39,15 +39,6 @@ public class EnemyRouteManager : MonoSingleton<EnemyRouteManager>
     {
         _navMeshSurface[0].UpdateNavMesh(_navMeshData[0]);
         _navMeshSurface[1].UpdateNavMesh(_navMeshData[1]);
-    }
-
-    
-    public Transform GetBuildingPosition()
-    {
-        return CommandBuilding.transform;
-    }
-    public void SetCommandBuilding(Agent agent)
-    {
-        CommandBuilding = agent;
+        print("navmeshupdated");
     }
 }

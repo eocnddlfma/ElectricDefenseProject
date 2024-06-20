@@ -12,7 +12,6 @@ public class EnemyMove : EnemyState
       base.Enter();
       Debug.Log("enemyStateMove");
       _enemyReference._navMeshAgent.enabled = true;
-      StartCoroutine(FindRefresh());
    }
 
    private RaycastHit[] _raycastHits;

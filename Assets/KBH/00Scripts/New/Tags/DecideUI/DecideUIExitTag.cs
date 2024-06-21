@@ -29,10 +29,21 @@ public class DecideUIExitTag : MonoTag<bool>
                OnExit();
             });
          }
-
          ++idx;
       }
 
+      foreach (var block in _uiReference.currentOpenedBlock)
+      {
+         if (block is EventUIBlock)
+         {
+            EventUIBlock eventBlock = block as EventUIBlock;
+
+            if (eventBlock.executeType == EventExecuteCondition.OnExit)
+            {
+               eventBlock.executeCallback?.Invoke();
+            }
+         }
+      }
    }
 
    public override void BaseUpdate()

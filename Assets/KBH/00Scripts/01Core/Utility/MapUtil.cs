@@ -111,6 +111,8 @@ public class MapUtil : MonoSingleton<MapUtil>
 
    private void GenerateMap()
    {
+      _seed = (int)PlayerPrefs.GetFloat("Seed");
+
       _mapInfo = new AgentType[_mapArea.x, _mapArea.y];
       List<CombineInstance> goldCombineList = new List<CombineInstance>();
       List<CombineInstance> rockCombineList = new List<CombineInstance>();

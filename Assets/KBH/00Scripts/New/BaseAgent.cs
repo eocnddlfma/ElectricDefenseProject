@@ -27,7 +27,7 @@ public interface INext<D>
 
 
 /// <summary>
-/// Base Agent는 반.드.시. Tag를 가지고 관리하되,
+/// Base Agent는 기본적으로 Tag를 가지고 관리하되,
 /// 다른 종속성을 가지지 않도록 구성해야 한다.
 /// </summary>
 public abstract class BaseAgent : MonoBehaviour, IBase

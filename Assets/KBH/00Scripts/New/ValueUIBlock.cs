@@ -11,6 +11,7 @@ public enum UIValueTypeEnum
 public class ValueUIBlock : DecideUIBlock
 {
    public UIValueTypeEnum valueType;
+   public float valueChangeSpeed = 1f;
    [Header("Percent")]
    [Range(0f, 1f)] private float percent = 0;
    [SerializeField] private Image gauge;
@@ -22,6 +23,10 @@ public class ValueUIBlock : DecideUIBlock
    [SerializeField] private float minValue = -10;
    [SerializeField] private float maxValue = 10;
    public TextMeshProUGUI textRenderer;
+
+   [Header("PlayerPrefs Save")]
+   public string saveName;
+
 
    public float Percent
    {
@@ -63,5 +68,18 @@ public class ValueUIBlock : DecideUIBlock
       }
    }
 
+   private void Awake()
+   {
+      switch (valueType)
+      {
+         case UIValueTypeEnum.percent:
+            Percent = PlayerPrefs.GetFloat(saveName, 0f);
+            break;
+
+         case UIValueTypeEnum.value:
+            Value = PlayerPrefs.GetFloat(saveName, 0f);
+            break;
+      }
+   }
 
 }

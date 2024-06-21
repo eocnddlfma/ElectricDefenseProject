@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public interface IState
 {
@@ -18,6 +18,8 @@ public class DecideUI : BaseAgent
    private int currentIdx = 0;
    private MonoTag<bool> currentRunningTag = null;
 
+   [SerializeField] private List<ValueUIBlock> _savingDataBlockList;
+
    private void Awake()
    {
       Initialize();
@@ -32,6 +34,8 @@ public class DecideUI : BaseAgent
 
    public override void Initialize()
    {
+      Time.timeScale = 1; 
+
       _reference = GetComponent<DecideUIReference>();
       _reference.Initialize();
 
@@ -64,6 +68,33 @@ public class DecideUI : BaseAgent
          currentRunningTag = _tagList[currentIdx];
          currentRunningTag.Current = true;
       }
+   }
+
+   public void SaveGameStartData()
+   {
+      foreach(var block in _savingDataBlockList)
+      {
+         switch (block.valueType)
+         {
+            case UIValueTypeEnum.percent:
+               PlayerPrefs.SetFloat(block.saveName, block.Percent);
+               break;
+
+            case UIValueTypeEnum.value:
+               PlayerPrefs.SetFloat(block.saveName, block.Value);
+               break;
+         }
+      }
+   }
+
+   public void LoadStartScene()
+   {
+      SceneManager.LoadScene("Kbh");
+   }
+
+   public void ExitGame()
+   {
+      Application.Quit();
    }
 }
 

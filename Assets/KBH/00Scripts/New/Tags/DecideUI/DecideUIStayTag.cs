@@ -29,9 +29,27 @@ public class DecideUIStayTag : MonoTag<bool>, IState
    public void OnEnter()
    {
       _currentBlockIdx = 0;
-      _selectVisual.SetTrm(
-         _reference.currentOpenedBlock.childs[0].visualTrm, 
-         0.2f);
+
+      if(_reference.currentOpenedBlock.childCount > 0)
+      {
+         _selectVisual.SetTrm(
+            _reference.currentOpenedBlock[0].visualTrm, 
+            0.2f);
+      }
+
+      foreach(var block in _reference.currentOpenedBlock)
+      {
+         if(block is EventUIBlock)
+         {
+            EventUIBlock eventBlock = block as EventUIBlock;
+
+            if(eventBlock.executeType == EventExecuteCondition.OnStay)
+            {
+               eventBlock.executeCallback?.Invoke();
+            }
+         }
+      }
+
    }
 
 
@@ -87,12 +105,16 @@ public class DecideUIStayTag : MonoTag<bool>, IState
          switch (valueBlock.valueType)
          {
             case UIValueTypeEnum.percent:
-               valueBlock.Percent += _percentChangeSpeed * Time.deltaTime * arrowDir;
+               valueBlock.Percent
+                  += _percentChangeSpeed * Time.deltaTime
+                  * arrowDir * valueBlock.valueChangeSpeed;
                break;
 
 
             case UIValueTypeEnum.value:
-               valueBlock.Value += _valueChangeSpeed * Time.deltaTime * arrowDir ;
+               valueBlock.Value
+                  += _valueChangeSpeed * Time.deltaTime
+                  * arrowDir * valueBlock.valueChangeSpeed;
                break;
          }
       }

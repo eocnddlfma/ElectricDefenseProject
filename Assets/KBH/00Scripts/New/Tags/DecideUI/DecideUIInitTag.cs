@@ -18,11 +18,13 @@ public class DecideUIInitTag : MonoTag<bool>
    public void OnEnter()
    {
       int idx = 0;
+      int maxIdx = _uiReference.currentOpenedBlock.childsContainsDummy.Count-1;
+
       foreach (var block
          in _uiReference.currentOpenedBlock.childsContainsDummy)
       {
-         Tween tween = block.SetVisible(true);
-         if (idx == 0)
+         Tween tween = block.SetVisible(true, idx);
+         if (idx == maxIdx)
          {
             tween.OnComplete(() =>
             {
@@ -32,6 +34,19 @@ public class DecideUIInitTag : MonoTag<bool>
          }
 
          ++idx;
+      }
+
+      foreach (var block in _uiReference.currentOpenedBlock)
+      {
+         if (block is EventUIBlock)
+         {
+            EventUIBlock eventBlock = block as EventUIBlock;
+
+            if (eventBlock.executeType == EventExecuteCondition.OnEnter)
+            {
+               eventBlock.executeCallback?.Invoke();
+            }
+         }
       }
 
    }

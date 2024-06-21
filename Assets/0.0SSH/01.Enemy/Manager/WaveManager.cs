@@ -37,7 +37,6 @@ public class WaveManager : MonoSingleton<WaveManager>
 
     public void GameEnd()
     {
-        Time.timeScale = 0;
         if (PlayerPrefs.GetFloat("MaxWave", 1) < WaveManager.Instance._wave)
         {
             PlayerPrefs.SetFloat("MaxWave", WaveManager.Instance._wave);

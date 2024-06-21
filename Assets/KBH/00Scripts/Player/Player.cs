@@ -5,6 +5,7 @@ public class Player : OperateAgent<AgentType>
 {
 
    [Header("Compoents")]
+   public Crystal mainCrystal;
    public PlayerMoveInfo moveInfo;
    public StateMachine<GameMode> stateMachine;
    public PlayerCamInfo camInfo;
@@ -19,6 +20,8 @@ public class Player : OperateAgent<AgentType>
    public override void Initialize(MonoBehaviour owner, YieldInstruction yieldInstruction, ILinkable<AgentType> parent = null)
    {
       base.Initialize(owner, yieldInstruction, parent);
+
+      Time.timeScale = 1;
 
       Agent agentOwner = owner as Agent;
       stateMachine.Intialize(agentOwner, GameMode.View);

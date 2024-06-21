@@ -7,11 +7,12 @@ using UnityEngine.Events;
 public enum EventExecuteCondition : byte
 {
    OnEnter,
-   OnReturn
+   OnStay,
+   OnExit
 }
 
 public class EventUIBlock : DecideUIBlock
 {
    public EventExecuteCondition executeType;
-   public UnityEvent blockCallback;
+   public UnityEvent executeCallback;
 }

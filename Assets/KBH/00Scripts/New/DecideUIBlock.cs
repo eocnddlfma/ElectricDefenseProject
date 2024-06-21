@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class DecideUIBlock : BaseAgent
+public class DecideUIBlock : BaseAgent, IEnumerable<DecideUIBlock>
 {
    private CanvasGroup _canvasGroup;
 
-   private float fadeTransitionTime = 1f;
+   [SerializeField] private float fadeTransitionTime = 0.2f;
+   [SerializeField] private float fadeAdditionalTimePerIdx = 0.05f;
 
    #region Hide
    [HideInInspector] public DecideUIBlock parentBlock;
@@ -35,10 +36,11 @@ public class DecideUIBlock : BaseAgent
    }
 
    public bool isInteractable = true;
-
+   private Vector3 startPosition;
 
    public override void Initialize()
    {
+      startPosition = transform.position;
       visualTrm = transform.Find("Visual") as RectTransform;
       
       if(visualTrm)
@@ -72,24 +74,46 @@ public class DecideUIBlock : BaseAgent
    }
 
 
-   public Tween SetVisible(bool isVisible)
+   public Tween SetVisible(bool isVisible, int idx = 0)
    {
+      float positionDownValue = 200;
+
+      float totalTransitionTime = fadeTransitionTime
+            + idx * fadeAdditionalTimePerIdx;
+
+
+      
+
       if (_canvasGroup is null) 
-         return DOVirtual.DelayedCall(fadeTransitionTime, null);
+         return DOVirtual.DelayedCall(totalTransitionTime, null);
 
       _canvasGroup.interactable = isVisible;
       _canvasGroup.blocksRaycasts = isVisible;
       
       if (isVisible)
       {
-         return _canvasGroup.DOFade(1, fadeTransitionTime);
+         transform.position = startPosition + Vector3.down * positionDownValue;
+
+         transform.DOMove(startPosition,
+            totalTransitionTime);
+
+         return _canvasGroup.DOFade(1, totalTransitionTime);
       }
       else
       {
-         return _canvasGroup.DOFade(0, fadeTransitionTime);
+         transform.position = startPosition;
+
+         transform.DOMove(startPosition + Vector3.down * positionDownValue,
+            totalTransitionTime);
+
+         return _canvasGroup.DOFade(0, totalTransitionTime);
       }
 
    }
 
+   public IEnumerator<DecideUIBlock> GetEnumerator()
+      => childsContainsDummy.GetEnumerator();
 
+   IEnumerator IEnumerable.GetEnumerator()
+      => childsContainsDummy.GetEnumerator();
 }
